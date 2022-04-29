@@ -37,6 +37,8 @@ const styles = StyleSheet.create({
   textUserRole: {
     backgroundColor: THEME.colors.darkred,
     paddingHorizontal: 10,
+    paddingVertical: 5,
+    fontSize:THEME.fontSize.description
   },
 });
 

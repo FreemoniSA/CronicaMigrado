@@ -1,11 +1,37 @@
 import React from "react";
-import { View, Text } from "react-native";
-
+import { ScrollView, View, FlatList } from "react-native";
+import Card from "../../components/Card";
+import Framer from "../../components/Framer";
+import { regalos, marcas } from "../../components/mockdata/home";
 const Home = () => {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>HOMEE</Text>
-    </View>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={{ flex: 1, alignItems: "center" }}>
+        <Framer title="Regalos destacados">
+          <FlatList
+            data={regalos}
+            horizontal={true}
+            renderItem={({ item }) => <Card srcImg={item.img} />}
+            keyExtractor={(item, index) => index.toString()}
+            showsHorizontalScrollIndicator={false}
+          />
+        </Framer>
+        <Framer title="Seleccioná la marca">
+          <FlatList
+            data={marcas}
+            horizontal={true}
+            renderItem={({ item }) => (
+              <Card srcImg={item.img} description={item.desc} />
+            )}
+            keyExtractor={(item, index) => index.toString()}
+            showsHorizontalScrollIndicator={false}
+          />
+        </Framer>
+        <Framer title="Volvé a disfrutarlo" footer="Ver más compras">
+          <Card  srcImg={marcas[3].img} description={marcas[3].desc} horizontal/>
+        </Framer>
+      </View>
+    </ScrollView>
   );
 };
 
