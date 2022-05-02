@@ -4,7 +4,6 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import CustomDrawerContent from "../../components/DrawerContent";
 import THEME from "../../utils/constants/theme";
-import { getHeaderTitle } from "@react-navigation/elements";
 import {
   GiftsStack,
   HelpStack,
@@ -12,7 +11,6 @@ import {
   ProfileStack,
   TransactionStack,
 } from "../Stacks";
-import HeaderHome from "../../components/Header/HeaderHome";
 
 const Drawer = createDrawerNavigator();
 
@@ -33,6 +31,7 @@ const MyDrawer = () => {
         drawerLabelStyle: {
           fontSize: THEME.fontSize.subheading,
         },
+        headerShown: false,
       }}
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
@@ -40,7 +39,6 @@ const MyDrawer = () => {
         name="Home"
         component={HomeStack}
         options={{
-          title: "Hola, Marcos",
           drawerIcon: ({ focused, size }) => (
             <Ionicon
               name="home-outline"
@@ -48,18 +46,6 @@ const MyDrawer = () => {
               color={THEME.colors.darkred}
             />
           ),
-          drawerLabel: "Inicio",
-          header: ({ navigation, route, options }) => {
-            const title = getHeaderTitle(options, route.name);
-            return (
-              <HeaderHome
-                title={title}
-                style={options.headerStyle}
-                navigation={navigation}
-                route={route}
-              />
-            );
-          },
         }}
       />
       <Drawer.Screen

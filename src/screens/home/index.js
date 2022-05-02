@@ -4,7 +4,6 @@ import Card from "../../components/Card";
 import Framer from "../../components/Framer";
 import { regalos, marcas } from "../../components/mockdata/home";
 const Home = ({ navigation }) => {
-  console.log(navigation)
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={{ flex: 1, alignItems: "center" }}>
@@ -29,7 +28,7 @@ const Home = ({ navigation }) => {
           />
         </Framer>
         <Framer title="Volvé a disfrutarlo" footer="Ver más compras">
-          <Card  srcImg={marcas[3].img} description={marcas[3].desc} horizontal/>
+          <Card  srcImg={marcas[3].img} size="small" description={marcas[3].desc} horizontal/>
         </Framer>
       </View>
     </ScrollView>

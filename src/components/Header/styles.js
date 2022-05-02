@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   containerCronipesosEnabled: {
     justifyContent: "center",
     alignItems: "center",
-    paddingVertical: 15,
+    paddingVertical: 8,
   },
   textCronipesos: {
     textAlign: "center",
