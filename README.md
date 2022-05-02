@@ -1,6 +1,5 @@
 # Initial APP Structure - Club Crónica
 
-<div style="display:flex">
 ## Drawer 
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/drawer.jpeg)
 
@@ -21,5 +20,5 @@
 
 ## Help 
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/help.jpeg)
-<div/>
+
 
