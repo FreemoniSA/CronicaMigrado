@@ -19,6 +19,7 @@ const Drawer = createDrawerNavigator();
 const MyDrawer = () => {
   return (
     <Drawer.Navigator
+      useLegacyImplementation={true}
       initialRouteName="Home"
       screenOptions={{
         drawerActiveBackgroundColor: THEME.colors.white,
@@ -55,6 +56,7 @@ const MyDrawer = () => {
                 title={title}
                 style={options.headerStyle}
                 navigation={navigation}
+                route={route}
               />
             );
           },

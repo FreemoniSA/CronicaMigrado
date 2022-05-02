@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions } from "react-native";
 import THEME from "../../utils/constants/theme";
 const styles = StyleSheet.create({
   containerFramer: {
-    width: Dimensions.get("window").width * 0.95,
+    width: THEME.width.default,
     backgroundColor: THEME.colors.white,
     marginVertical: 8,
     padding: 5,

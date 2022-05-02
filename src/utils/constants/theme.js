@@ -1,3 +1,4 @@
+import { Dimensions } from "react-native";
 const THEME = {
   colors: {
     red: "#F40000",
@@ -7,12 +8,17 @@ const THEME = {
     lightgray: "#E3DDDD",
     white: "#ffffff",
     green: "#44b16e",
-    creamwhite:"#f5f5f5"
+    creamwhite: "#f5f5f5",
   },
   fontSize: {
     heading: 18,
     subheading: 16,
-    description:10
+    title:13,
+    description: 10,
+  },
+  width: {
+    default: Dimensions.get("window").width * 0.95,
+    fullWidth: "100%",
   },
 };
 

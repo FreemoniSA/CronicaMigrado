@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import styles from "./styles";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import THEME from "../../utils/constants/theme";
-const HeaderHome = ({ title, navigation }) => {
+const HeaderHome = ({ title, navigation, route }) => {
   return (
     <View style={styles.containerHeader}>
       <View style={styles.containerAppHeader}>
@@ -21,6 +21,7 @@ const HeaderHome = ({ title, navigation }) => {
             name="notifications-outline"
             size={30}
             color={THEME.colors.white}
+            onPress={()=>navigation.navigate("Notificaciones")}
           />
         </View>
       </View>

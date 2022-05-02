@@ -3,7 +3,8 @@ import { ScrollView, View, FlatList } from "react-native";
 import Card from "../../components/Card";
 import Framer from "../../components/Framer";
 import { regalos, marcas } from "../../components/mockdata/home";
-const Home = () => {
+const Home = ({ navigation }) => {
+  console.log(navigation)
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={{ flex: 1, alignItems: "center" }}>
