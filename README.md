@@ -1,7 +1,8 @@
 # Initial APP Structure - Club Crónica
 
+<div style="display:flex">
 ## Drawer 
-<img src="https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/drawer.jpeg" alt="alt text" style="width:375;height:auto">
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/drawer.jpeg)
 
 ## Home 
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/home.jpeg)
@@ -20,3 +21,5 @@
 
 ## Help 
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/help.jpeg)
+<div/>
+
