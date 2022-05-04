@@ -4,6 +4,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import CustomDrawerContent from "../../components/DrawerContent";
 import THEME from "../../utils/constants/theme";
+import { useTheme } from "@react-navigation/native";
 import {
   GiftsStack,
   HelpStack,
@@ -15,13 +16,14 @@ import {
 const Drawer = createDrawerNavigator();
 
 const MyDrawer = () => {
+  const { colors } = useTheme();
   return (
     <Drawer.Navigator
       useLegacyImplementation={true}
       initialRouteName="Home"
       screenOptions={{
         drawerActiveBackgroundColor: THEME.colors.white,
-        drawerActiveTintColor: THEME.colors.darkred,
+        drawerActiveTintColor: colors.text,
         drawerInactiveTintColor: THEME.colors.black,
         drawerInactiveBackgroundColor: THEME.colors.white,
         drawerStyle: {
@@ -43,7 +45,7 @@ const MyDrawer = () => {
             <Ionicon
               name="home-outline"
               size={28}
-              color={THEME.colors.darkred}
+              color={THEME.colors.red}
             />
           ),
         }}
@@ -57,7 +59,7 @@ const MyDrawer = () => {
             <Ionicon
               name="person-outline"
               size={28}
-              color={THEME.colors.darkred}
+              color={THEME.colors.red}
             />
           ),
         }}
@@ -71,7 +73,7 @@ const MyDrawer = () => {
             <Ionicon
               name="gift-outline"
               size={28}
-              color={THEME.colors.darkred}
+              color={THEME.colors.red}
             />
           ),
         }}
@@ -85,7 +87,7 @@ const MyDrawer = () => {
             <Ionicon
               name="swap-horizontal-outline"
               size={28}
-              color={THEME.colors.darkred}
+              color={THEME.colors.red}
             />
           ),
         }}
@@ -99,7 +101,7 @@ const MyDrawer = () => {
             <Ionicon
               name="help-circle-outline"
               size={28}
-              color={THEME.colors.darkred}
+              color={THEME.colors.red}
             />
           ),
         }}

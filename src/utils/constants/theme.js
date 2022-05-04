@@ -9,6 +9,7 @@ const THEME = {
     white: "#ffffff",
     green: "#44b16e",
     creamwhite: "#f5f5f5",
+    blackCronica:"#202020"
   },
   fontSize: {
     heading: 18,
@@ -27,8 +28,8 @@ export const APP_THEME_BLACK = {
   colors: {
     primary: THEME.colors.white,
     background: THEME.colors.creamwhite,
-    card: THEME.colors.black,
-    text: THEME.colors.white,
+    card: THEME.colors.blackCronica,
+    text: THEME.colors.blackCronica,
     border: THEME.colors.white,
     notification: THEME.colors.white,
   },
@@ -40,7 +41,7 @@ export const APP_THEME_CLASSIC = {
     primary: THEME.colors.white,
     background: THEME.colors.creamwhite,
     card: THEME.colors.red,
-    text: THEME.colors.white,
+    text: THEME.colors.red,
     border: THEME.colors.white,
     notification: THEME.colors.white,
   },

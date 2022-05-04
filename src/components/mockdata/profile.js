@@ -3,5 +3,5 @@ export const userprof = {
   image,
   name: "Marcos",
   email: "Marcos@gmail.com",
-  status: "Socio Classic",
+  status: "Socio Black",
 };

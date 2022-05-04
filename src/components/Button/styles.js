@@ -26,6 +26,9 @@ const styles = StyleSheet.create({
   black: {
     backgroundColor: THEME.colors.black,
   },
+  blackCronica:{
+    backgroundColor: THEME.colors.blackCronica
+  },
   green: {
     backgroundColor: THEME.colors.green,
   },

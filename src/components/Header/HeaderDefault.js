@@ -3,9 +3,11 @@ import { View, Text } from "react-native";
 import styles from "./styles";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import THEME from "../../utils/constants/theme";
+import { useTheme } from '@react-navigation/native';
 const HeaderDefault = ({ title, navigation }) => {
+  const { colors } = useTheme();
   return (
-    <View style={styles.containerHeader}>
+    <View style={{ backgroundColor:colors.card, padding:12 }}>
       <View style={styles.containerAppHeader}>
         <View style={styles.containerWelcomeHeader}>
           <Ionicon

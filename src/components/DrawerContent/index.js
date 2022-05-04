@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Image, TouchableOpacity, Dimensions } from "react-native";
 import cronicaDrawer from "../../../assets/club-cronica.png";
+import cronicaDrawerBlack from "../../../assets/club-cronica-black.png";
 import freemoniLogo from "../../../assets/logo-home-2.png";
 import styles from "./styles";
 import {
@@ -8,8 +9,10 @@ import {
   DrawerItemList,
 } from "@react-navigation/drawer";
 import Button from "../Button";
-
+import { closeSession } from "../../utils/actions";
+import useGetUserRole from "../../hooks/useGetUserRole";
 const CustomDrawerContent = (props) => {
+  const role = useGetUserRole();
   return (
     <DrawerContentScrollView
       {...props}
@@ -17,7 +20,10 @@ const CustomDrawerContent = (props) => {
     >
       <View style={styles.container}>
         <View>
-          <Image source={cronicaDrawer} style={styles.img} />
+          <Image
+            source={role === "classic" ? cronicaDrawer : cronicaDrawerBlack}
+            style={styles.img}
+          />
           <DrawerItemList {...props} />
         </View>
         <View>
@@ -29,7 +35,11 @@ const CustomDrawerContent = (props) => {
             <Text style={styles.footerItem}>Version 1.2.9</Text>
           </View>
           <View style={styles.footerItemContainer}>
-            <Button text="Cerrar sesión" color="red" />
+            <Button
+              text="Cerrar sesión"
+              color={role === "classic" ? "red" : "blackCronica"}
+              onPress={() => closeSession()}
+            />
           </View>
         </View>
       </View>

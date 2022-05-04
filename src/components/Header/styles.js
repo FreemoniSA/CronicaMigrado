@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions } from "react-native";
 import THEME from "../../utils/constants/theme";
 const styles = StyleSheet.create({
   containerHeader: {
-    backgroundColor: THEME.colors.red,
+    // backgroundColor: THEME.colors.red,
     padding: 12,
   },
   containerAppHeader: {
@@ -35,11 +35,13 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   textUserRole: {
-    backgroundColor: THEME.colors.darkred,
     paddingHorizontal: 10,
     paddingVertical: 5,
     fontSize:THEME.fontSize.description
   },
+  textUserRoleColor:{
+    backgroundColor: THEME.colors.darkred,
+  }
 });
 
 export default styles;
