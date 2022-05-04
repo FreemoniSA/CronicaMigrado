@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const useGetUserRole = () => {
-  const [role, setRole] = useState("black");
+  const [role, setRole] = useState("classic");
   return role;
 };
 
