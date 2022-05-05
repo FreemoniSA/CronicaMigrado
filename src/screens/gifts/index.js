@@ -4,7 +4,7 @@ import BoxGift from "../../components/Boxes/BoxGift";
 import Card from "../../components/Card";
 import styles from "./styles";
 import { regalos } from "../../components/mockdata/gifts";
-const Gifts = () => {
+const Gifts = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <FlatList
@@ -19,6 +19,8 @@ const Gifts = () => {
             shadow
             borderRound
             width="widthWithMinimunMargin"
+            theme={item.type}
+            onPress={()=>navigation.navigate({ name:"Modal", params: { id:item.id } })}
           >
             <BoxGift data={item} />
           </Card>

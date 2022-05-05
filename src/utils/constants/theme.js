@@ -9,7 +9,8 @@ const THEME = {
     white: "#ffffff",
     green: "#44b16e",
     creamwhite: "#f5f5f5",
-    blackCronica:"#202020"
+    blackCronica:"#202020",
+    blue:"#39548b"
   },
   fontSize: {
     heading: 18,
