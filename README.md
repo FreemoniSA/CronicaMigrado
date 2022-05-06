@@ -1,5 +1,8 @@
 # Initial APP Structure - Club Crónica
 
+## Onboarding - Open PDFs
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/help.gif)
+
 ## App Flow
 
 ### Classic
