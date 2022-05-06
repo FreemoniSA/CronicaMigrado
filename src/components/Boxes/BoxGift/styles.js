@@ -27,6 +27,9 @@ const styles = StyleSheet.create({
   separator:{
       borderColor:THEME.colors.lightgray,
       borderWidth:1
+  },
+  themeBlack:{
+    color:THEME.colors.white
   }
 });
 export default styles;

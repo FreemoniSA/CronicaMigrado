@@ -6,7 +6,9 @@ import logo1 from "../../../assets/fakeimages/logo1.png";
 import logo2 from "../../../assets/fakeimages/logo2.png";
 import logo3 from "../../../assets/fakeimages/logo3.png";
 import logo4 from "../../../assets/fakeimages/logo4.png";
-
+import marca1 from "../../../assets/fakeimages/marca1.png"
+import marca2 from "../../../assets/fakeimages/marca2.png"
+import marca3 from "../../../assets/fakeimages/marca3.png"
 export const regalos = [
   {
     img: regalo1,
@@ -24,20 +26,20 @@ export const regalos = [
 
 export const marcas = [
   {
-    img: logo1,
-    desc: "Oreo",
+    img: marca1,
+    desc: "ARCOR",
   },
   {
-    img: logo2,
-    desc: "Coca Cola",
+    img: marca2,
+    desc: "BRINDAR SALUD",
   },
   {
-    img: logo3,
-    desc: "Pepsi",
+    img: marca3,
+    desc: "CINEMACENTER",
   },
   {
     img: logo4,
-    desc: "Arcor",
+    desc: "ARCOR",
   },
 ];
 

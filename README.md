@@ -1,5 +1,31 @@
 # Initial APP Structure - Club Crónica
 
+## Onboarding - Open PDFs
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/help.gif)
+
+## App Flow
+
+### Classic
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/classic.gif)
+
+### Black
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/black.gif)
+
+### Auth
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/login-register.gif)
+
+
+## Classic Category Gifts
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/cronipesos-classic.png)
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/list-gifts.png)
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/usecronipesos.png)
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/converttoblack.png)
+
+## Black Category Gifts
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/cronipesos-black.png)
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/modal-black.png)
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/modal-classic.png)
+
 # Cronica Black
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/drawer-black.png)
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/home-black.png)

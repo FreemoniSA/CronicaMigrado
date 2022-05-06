@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     backgroundColor: THEME.colors.red,
   },
   blue: {
-    backgroundColor: THEME.colors.red,
+    backgroundColor: THEME.colors.blue,
   },
   black: {
     backgroundColor: THEME.colors.black,
@@ -32,6 +32,9 @@ const styles = StyleSheet.create({
   green: {
     backgroundColor: THEME.colors.green,
   },
+  margin:{
+    marginVertical:7
+  }
 });
 
 export default styles;

@@ -21,6 +21,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingHorizontal:5,
   },
+  greatPadding:{
+    paddingVertical:15
+  },
   textTitle: {
     color: THEME.colors.darkgray,
     fontSize: THEME.fontSize.subheading,

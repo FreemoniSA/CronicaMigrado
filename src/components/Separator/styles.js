@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: THEME.colors.lightgray,
     height:1,
+    width:"100%"
   },
 });
 

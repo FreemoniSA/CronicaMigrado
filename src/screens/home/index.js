@@ -21,7 +21,7 @@ const Home = ({ navigation }) => {
             data={marcas}
             horizontal={true}
             renderItem={({ item }) => (
-              <Card srcImg={item.img} description={item.desc} />
+              <Card srcImg={item.img} description={item.desc} onPress={()=>navigation.navigate({ name:"Cronipesos" })}/>
             )}
             keyExtractor={(item, index) => index.toString()}
             showsHorizontalScrollIndicator={false}
