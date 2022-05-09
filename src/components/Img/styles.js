@@ -11,6 +11,10 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 10,
   },
+  rectangle:{
+    width:220,
+    height:100
+  }
 });
 
 export default styles;
