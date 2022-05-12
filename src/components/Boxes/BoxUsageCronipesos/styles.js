@@ -10,11 +10,11 @@ const styles = StyleSheet.create({
         marginBottom:20
     },
     questionText:{
-        fontSize:THEME.fontSize.heading,
+        fontSize:THEME.fontSize.subheading,
         fontWeight:"700"
     },
     listContainer:{
-        paddingHorizontal:15
+        paddingHorizontal:12
     },
     listTextContainer:{
         flexDirection:"row",
@@ -22,11 +22,11 @@ const styles = StyleSheet.create({
         alignItems:"flex-start"
     },
     listTextIdx:{
+        fontSize:12,
         fontWeight:"700"
     },
     listText:{
-        fontSize:THEME.fontSize.subheading,
-        lineHeight:23
+        fontSize:12,
     }
 })
 export default styles;

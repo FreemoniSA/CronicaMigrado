@@ -1,5 +1,10 @@
 # Initial APP Structure - Club Crónica
 
+## Modal - Share app - fix cronipesos modal 
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/sharemodal.png)
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/sharebutton.png)
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/fixcronipesos.png)
+
 ## Onboarding - Open PDFs
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/help.gif)
 
