@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Alert, StyleSheet, View, TextInput, Text, Image } from "react-native";
 import { Button, Icon, Input } from "react-native-elements";
 import styles from "./styles";
-import { sendEmailResetPassword } from "../../utils/actions";
-import { validateEmail } from "../../utils/helpers";
+// import { sendEmailResetPassword } from "../../utils/actions";
+// import { validateEmail } from "../../utils/helpers";
 import logo from "../../../assets/club-cronica-circle.png";
 import Loading from "../../components/Loading";
 export default function RecoverPassword({ navigation }) {
@@ -11,39 +11,39 @@ export default function RecoverPassword({ navigation }) {
   const [errorEmail, setErrorEmail] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const validateData = () => {
-    setErrorEmail(null);
-    let valid = true;
-    console.log("email", email);
+  // const validateData = () => {
+  //   setErrorEmail(null);
+  //   let valid = true;
+  //   console.log("email", email);
 
-    if (!validateEmail(email)) {
-      setErrorEmail("Debes ingresar un email válido.");
-      valid = false;
-    }
+  //   if (!validateEmail(email)) {
+  //     setErrorEmail("Debes ingresar un email válido.");
+  //     valid = false;
+  //   }
 
-    return valid;
-  };
+  //   return valid;
+  // };
 
-  const onSubmit = async () => {
-    if (!validateData()) {
-      return;
-    }
+  // const onSubmit = async () => {
+  //   if (!validateData()) {
+  //     return;
+  //   }
 
-    setLoading(true);
-    const result = await sendEmailResetPassword(email);
-    setLoading(false);
+  //   setLoading(true);
+  //   const result = await sendEmailResetPassword(email);
+  //   setLoading(false);
 
-    if (!result.statusResponse) {
-      Alert.alert("Error", "Este correo no está relacionado a ningún usuario.");
-      return;
-    }
+  //   if (!result.statusResponse) {
+  //     Alert.alert("Error", "Este correo no está relacionado a ningún usuario.");
+  //     return;
+  //   }
 
-    Alert.alert(
-      "Confirmación",
-      "Se le ha enviado un email con las instrucciones para cambiar la contraseña."
-    );
-    navigation.navigate("Login");
-  };
+  //   Alert.alert(
+  //     "Confirmación",
+  //     "Se le ha enviado un email con las instrucciones para cambiar la contraseña."
+  //   );
+  //   navigation.navigate("Login");
+  // };
 
   return (
     <View style={styles.container}>
@@ -68,7 +68,7 @@ export default function RecoverPassword({ navigation }) {
         title="Recuperar Contraseña"
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
-        onPress={onSubmit}
+        onPress={()=>console.log("recover")}
       />
       <Loading isVisible={loading} text="Recuperando contraseña..." />
     </View>

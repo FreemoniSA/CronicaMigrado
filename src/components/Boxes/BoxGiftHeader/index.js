@@ -7,10 +7,10 @@ const BoxGiftHeader = ({ data }) => {
     <View style={styles.container}>
       
         <Text style={[styles.store, type === "black" && styles.themeBlack]}>
-          {data.store}
+          {data.name}
         </Text>
         <Text style={[styles.storeType, type === "black" && styles.themeBlack]}>
-          {data.storeType}
+          {data.area}
         </Text>
       
     </View>

@@ -5,30 +5,37 @@ import React, {
   useEffect,
   useMemo,
 } from "react";
-import * as firebase from "firebase";
-import { getCurrentUser } from "../utils/actions";
+import auth from '@react-native-firebase/auth';
 export const AppContext = createContext(null);
 
 export const AppContextProvider = ({ children }) => {
+  const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const [accountUser, setAccountUser] = useState(null);
+
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged((credential) => {
-      if (credential) {
-        setUser(credential);
-      } else {
-        setUser(null);
-      }
-    });
-    return () => unsubscribe();
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
   }, []);
 
-  //   console.log("user useeffect context", user);
+    console.log("userData",userData);
+    console.log("accountuser", accountUser);
+
   const values = useMemo(
     () => ({
       user,
+      userData,
+      setUserData,
+      setAccountUser,
+      accountUser
     }),
-    [user]
+    [user, userData, accountUser]
   );
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;

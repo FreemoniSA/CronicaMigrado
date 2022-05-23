@@ -2,157 +2,118 @@ import React, { useState } from "react";
 import { StyleSheet, View, TextInput, Text } from "react-native";
 import { Button, Icon, Input } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
-import { size } from "lodash";
-import { validateEmail } from "../../utils/helpers";
-import {
-  addDocumentWithId,
-  getCurrentUser,
-  getToken,
-  registerUser,
-} from "../../utils/actions";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import THEME from "../../utils/constants/theme";
 import styles from "./styles";
 import Loading from "../Loading";
-
+import auth from "@react-native-firebase/auth";
+import CustomInput from "../CustomInput";
+import { useForm, Controller } from "react-hook-form";
+import { EMAIL_REGEX } from "../../utils/constants/regex";
+import BASE_URL from "../../utils/constants/baseUrl";
+import { createUserFreemoniDb } from "../../services";
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState(defaultFormValues());
-  const [errorEmail, setErrorEmail] = useState("");
-  const [errorPassword, setErrorPassword] = useState("");
-  const [errorConfirm, setErrorConfirm] = useState("");
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
-  const onChange = (e, type) => {
-    setFormData({ ...formData, [type]: e.nativeEvent.text });
+
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const pwd = watch("password");
+
+  const onSubmitSignupHandle = async (data) => {
+    try {
+      await auth().createUserWithEmailAndPassword(data.email, data.password);
+      const dataUser = await createUserFreemoniDb(data);
+      console.log(dataUser);
+    } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        console.log("That email address is already in use!");
+      }
+
+      if (error.code === "auth/invalid-email") {
+        console.log("That email address is invalid!");
+      }
+
+      console.error(error);
+    }
   };
 
-  const doRegisterUser = async () => {
-    if (!validateData()) {
-      return;
-    }
-
-    setLoading(true);
-    const result = await registerUser(formData.email, formData.password);
-    if (!result.statusResponse) {
-      setLoading(false);
-      setErrorEmail(result.error);
-      return;
-    }
-
-    const token = await getToken();
-    const resultUser = await addDocumentWithId(
-      "users",
-      { token },
-      getCurrentUser().uid
-    );
-    if (!resultUser.statusResponse) {
-      setLoading(false);
-      setErrorEmail(result.error);
-      return;
-    }
-
-    setLoading(false);
-    navigation.navigate("account");
-  };
-
-  const validateData = () => {
-    setErrorConfirm("");
-    setErrorEmail("");
-    setErrorPassword("");
-    let isValid = true;
-
-    if (!validateEmail(formData.email)) {
-      setErrorEmail("Debes de ingresar un email válido.");
-      isValid = false;
-    }
-
-    if (size(formData.password) < 6) {
-      setErrorPassword(
-        "Al menos seis carácteres."
-      );
-      isValid = false;
-    }
-
-    if (size(formData.confirm) < 6) {
-      setErrorConfirm(
-        "Al menos seis carácteres."
-      );
-      isValid = false;
-    }
-
-    if (formData.password !== formData.confirm) {
-      setErrorPassword("La contraseña y la confirmación no son iguales.");
-      setErrorConfirm("La contraseña y la confirmación no son iguales.");
-      isValid = false;
-    }
-
-    return isValid;
-  };
 
   return (
     <View style={styles.form}>
-      <View style={styles.inputComponent}>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Ingresa tu email..."
-            onChange={(e) => onChange(e, "email")}
-            keyboardType="email-address"
-            value={formData.email}
-          />
-        </View>
-        <View style={styles.errorContainer}>
-          <Text style={styles.textError}>{errorEmail}</Text>
-        </View>
-      </View>
-      <View style={styles.inputComponent}>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Ingresa tu contraseña..."
-            secureTextEntry={!showPassword}
-            onChange={(e) => onChange(e, "password")}
-            value={formData.password}
-          />
-          <Ionicons
-            name={showPassword ? "eye-off-outline" : "eye-outline"}
-            size={26}
-            color={THEME.colors.darkgray}
-            onPress={() => setShowPassword(!showPassword)}
-          />
-        </View>
-        <View style={styles.errorContainer}>
-          <Text style={styles.textError}>{errorPassword}</Text>
-        </View>
-      </View>
-      <View style={styles.inputComponent}>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Confirmar contraseña..."
-            secureTextEntry={!showPassword}
-            onChange={(e) => onChange(e, "confirm")}
-            value={formData.confirm}
-          />
-          <Ionicons
-            name={showPassword ? "eye-off-outline" : "eye-outline"}
-            size={26}
-            color={THEME.colors.darkgray}
-            onPress={() => setShowPassword(!showPassword)}
-          />
-        </View>
-        <View style={styles.errorContainer}>
-          <Text style={styles.textError}>{errorConfirm}</Text>
-        </View>
-      </View>
+      <CustomInput
+        name="name"
+        placeholder="Nombre"
+        control={control}
+        rules={{
+          required: "Nombre es requerido",
+        }}
+      />
+      <CustomInput
+        name="lastname"
+        placeholder="Apellido"
+        control={control}
+        rules={{
+          required: "Apellido es requerido",
+        }}
+      />
+      <CustomInput
+        name="dni"
+        placeholder="D.N.I."
+        control={control}
+        rules={{
+          required: "DNI es requerido",
+        }}
+      />
+      <CustomInput
+        name="email"
+        placeholder="Ingresá tu email..."
+        control={control}
+        rules={{
+          required: "Email es requerido",
+          pattern: {
+            value: EMAIL_REGEX,
+            message: "Introduzca un email válido",
+          },
+        }}
+      />
+      <CustomInput
+        name="password"
+        placeholder="Ingresá tu contraseña..."
+        control={control}
+        rules={{
+          required: "Contraseña es requerido",
+          minLength: { value: 8, message: "Mínimo 8 caracteres" },
+        }}
+        secureTextEntry
+        showPassword={showPassword}
+        setShowPassword={setShowPassword}
+        passwordIcon
+      />
+      {/* <CustomInput
+        name="confirmPassword"
+        placeholder="Confirmá tu contraseña..."
+        control={control}
+        rules={{
+          validate: (value) => value === pwd || "Las contraseñas no coinciden",
+        }}
+        secureTextEntry
+        showPassword={showPassword}
+        setShowPassword={setShowPassword}
+        passwordIcon
+      /> */}
       <Button
         title="Registrarse"
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
-        onPress={() => doRegisterUser()}
-        // onPress={()=>console.log("Do register")}
+        onPress={handleSubmit(onSubmitSignupHandle)}
       />
+
       <View style={styles.accountExistContainer}>
         <Text style={styles.accountExistText}>
           ¿Ya tienes cuenta?{" "}
@@ -168,7 +129,3 @@ export default function RegisterForm() {
     </View>
   );
 }
-
-const defaultFormValues = () => {
-  return { email: "", password: "", confirm: "" };
-};

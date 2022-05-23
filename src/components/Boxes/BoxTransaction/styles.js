@@ -5,28 +5,31 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexGrow: 1,
     justifyContent: "space-evenly",
-    alignItems:"center",
-    paddingVertical:20,
-    paddingHorizontal:10,
+    alignItems: "center",
+    paddingVertical: 20,
+    paddingHorizontal: 10,
   },
-  desc:{
-    fontSize:12,
+  desc: {
+    fontSize: 12,
   },
-  date:{
-    fontSize:THEME.fontSize.description,
-    color:THEME.colors.darkgray
+  date: {
+    fontSize: THEME.fontSize.description,
+    color: THEME.colors.darkgray,
   },
-  balance:{
-    fontSize:THEME.fontSize.subheading,
-    alignSelf:"center",
-    backgroundColor:"#ddf7de",
-    color:THEME.colors.green,
-    padding:5,
-    borderRadius:5
+  balance: {
+    fontSize: THEME.fontSize.subheading,
+    alignSelf: "center",
+    color: THEME.colors.blackCronica,
+    padding: 5,
+    borderRadius: 5,
   },
-  separator:{
-      borderColor:THEME.colors.lightgray,
-      borderWidth:1
-  }
+  greenBalance: {
+    backgroundColor: "#ddf7de",
+    color: THEME.colors.green,
+  },
+  separator: {
+    borderColor: THEME.colors.lightgray,
+    borderWidth: 1,
+  },
 });
 export default styles;

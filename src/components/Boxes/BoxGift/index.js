@@ -7,19 +7,19 @@ const BoxGift = ({ data }) => {
     <View style={styles.container}>
       <View style={{ width: "40%" }}>
         <Text style={[styles.store, type === "black" && styles.themeBlack]}>
-          {data.store}
+          {data.posData.name}
         </Text>
         <Text style={[styles.storeType, type === "black" && styles.themeBlack]}>
-          {data.storeType}
+          {data.posData.area}
         </Text>
       </View>
       <View style={styles.separator}></View>
       <View style={{ width: "40%" }}>
         <Text style={[styles.balance, type === "black" && styles.themeBlack]}>
-          {data.balance}
+          c$ {data.discount}
         </Text>
         <Text style={[styles.minAmount, type === "black" && styles.themeBlack]}>
-          {data.minAmount}
+          A partir de: ${data.minAmount}
         </Text>
       </View>
     </View>

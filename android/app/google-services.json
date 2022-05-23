@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "762222987203",
+    "firebase_url": "https://freemoni-consumer-dev-a6b4c.firebaseio.com",
+    "project_id": "freemoni-consumer-dev-a6b4c",
+    "storage_bucket": "freemoni-consumer-dev-a6b4c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762222987203:android:e6b0859174ba30fbd99f76",
+        "android_client_info": {
+          "package_name": "com.freemoni.clubcronicaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762222987203-ldf0406b8tkplf9h196jrclg3fdrftke.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABP0nTc7Pqf928QiPn4hHrwLumBznEt5M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "762222987203-ldf0406b8tkplf9h196jrclg3fdrftke.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "762222987203-15a2dfnkg03lr0lm00kak6q5vqv66153.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.freemoni.start"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

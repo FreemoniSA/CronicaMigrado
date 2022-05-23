@@ -15,10 +15,10 @@ import {
   DrawerItemList,
 } from "@react-navigation/drawer";
 import Button from "../Button";
-import { closeSession } from "../../utils/actions";
 import useGetUserRole from "../../hooks/useGetUserRole";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import THEME from "../../utils/constants/theme";
+import auth from "@react-native-firebase/auth";
 const CustomDrawerContent = (props) => {
   const role = useGetUserRole();
   const onShareApp = () => {
@@ -29,6 +29,13 @@ const CustomDrawerContent = (props) => {
       .then((result) => console.log(result))
       .catch((error) => console.log(error));
   };
+
+  const closeSession = () => {
+    auth()
+      .signOut()
+      .then(() => console.log("User signed out!"));
+  };
+
   return (
     <DrawerContentScrollView
       {...props}

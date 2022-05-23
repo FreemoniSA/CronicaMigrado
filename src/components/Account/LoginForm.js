@@ -1,187 +1,111 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  View,
-  Platform,
-  Alert,
-  TextInput,
-  Text,
-} from "react-native";
-import { Button, Icon, Input } from "react-native-elements";
+import { View } from "react-native";
+import { Button, Icon } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
-import { isEmpty } from "lodash";
 import styles from "./styles";
-import * as GoogleSignIn from "expo-google-sign-in";
-import * as firebase from "firebase";
-import { validateEmail } from "../../utils/helpers";
-import { loginWithEmailAndPassword } from "../../utils/actions";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import THEME from "../../utils/constants/theme";
 import Loading from "../Loading";
+import { useForm } from "react-hook-form";
+import auth from "@react-native-firebase/auth";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import CustomInput from "../CustomInput";
+import { EMAIL_REGEX } from "../../utils/constants/regex";
+import { createUserSocialAuthFreemoniDb, getAccountData, getDataUser } from "../../services";
+import useAppContext from "../../context/useAppContext";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState(defaultFormValues());
-  const [errorEmail, setErrorEmail] = useState("");
-  const [errorPassword, setErrorPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const { setAccountUser, setUserData } = useAppContext()
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const onChange = (e, type) => {
-    setFormData({ ...formData, [type]: e.nativeEvent.text });
-  };
+  GoogleSignin.configure({
+    webClientId:
+      "762222987203-ldf0406b8tkplf9h196jrclg3fdrftke.apps.googleusercontent.com",
+  });
 
-  // async function googleSignInAsync() {
-  //   try {
-  //     await GoogleSignIn.initAsync();
-  //     if (Platform.OS === "android") {
-  //       await GoogleSignIn.askForPlayServicesAsync();
-  //     }
-  //     const { type, user } = await GoogleSignIn.signInAsync();
-  //     if (type === "success") {
-  //       onSignIn(user);
-  //       setLoading(false);
-  //       return true;
-  //     } else {
-  //       setLoading(false);
-  //       Alert.alert(JSON.stringify(result));
-  //       return { cancelled: true };
-  //     }
-  //   } catch (error) {
-  //     setLoading(false);
-  //     Alert.alert(error.message);
-  //     return { error: true };
-  //   }
-  // }
 
-  // function onSignIn(googleUser) {
-  //   const unsubscribe = firebase
-  //     .auth()
-  //     .onAuthStateChanged(function (firebaseUser) {
-  //       unsubscribe();
-  //       if (!isUserEqual(googleUser, firebaseUser)) {
-  //         const credential = firebase.auth.GoogleAuthProvider.credential(
-  //           googleUser.auth.idToken,
-  //           googleUser.auth.accessToken
-  //         );
-  //         setLoading(true);
-  //         firebase
-  //           .auth()
-  //           .signInWithCredential(credential)
-  //           .then(() => {
-  //             setLoading(false);
-  //           })
-  //           .catch(function (error) {
-  //             setLoading(false);
-  //             Alert.alert(error.message);
-  //           });
-  //       } else {
-  //         Alert.alert("Usuario ya está logueado");
-  //       }
-  //     });
-  // }
-
-  // function isUserEqual(googleUser, firebaseUser) {
-  //   if (firebaseUser) {
-  //     let providerData = firebaseUser.providerData;
-  //     for (let i = 0; i < providerData.length; i++) {
-  //       if (
-  //         providerData[i].providerId ===
-  //           firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
-  //         providerData[i].uid === googleUser.getBasicProfile().getId()
-  //       ) {
-  //         return true;
-  //       }
-  //     }
-  //   }
-  //   return false;
-  // }
-
-  const doLogin = async () => {
-    if (!validateData()) {
-      return;
-    }
-
-    setLoading(true);
-    const result = await loginWithEmailAndPassword(
-      formData.email,
-      formData.password
-    );
-    setLoading(false);
-
-    if (!result.statusResponse) {
-      setErrorEmail(result.error);
-      setErrorPassword(result.error);
-      return;
+  const signInWithGoogleHandle = async () => {
+    try {
+      const { idToken } = await GoogleSignin.signIn();
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      const user_sign_in = await auth().signInWithCredential(googleCredential);
+      if(user_sign_in.additionalUserInfo.isNewUser){
+        const dataUser = await createUserSocialAuthFreemoniDb(user_sign_in.user)
+      }
+      const getUserData = await getDataUser(user_sign_in.user);
+      const getAccountUserData = await getAccountData(getUserData);
+      setUserData(getUserData);
+      setAccountUser(getAccountUserData);
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const validateData = () => {
-    setErrorEmail("");
-    setErrorPassword("");
-    let isValid = true;
+  const onSubmitLogin = (data) => {
+    auth()
+      .signInWithEmailAndPassword(data.email, data.password)
+      .then(() => {
+        console.log("Sign in");
+      })
+      .catch((error) => {
+        if (error.code === "auth/email-already-in-use") {
+          console.log("That email address is already in use!");
+        }
 
-    if (!validateEmail(formData.email)) {
-      setErrorEmail("Debes de ingresar un email válido.");
-      isValid = false;
-    }
+        if (error.code === "auth/invalid-email") {
+          console.log("That email address is invalid!");
+        }
 
-    if (isEmpty(formData.password)) {
-      setErrorPassword("Debes de ingresar tu contraseña.");
-      isValid = false;
-    }
+        console.error(error);
+      });
+  };
 
-    return isValid;
+  const onSubmitLoginHandle = (data) => {
+    console.log("Se envia registro", data);
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputComponent}>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Ingresa tu email..."
-            onChange={(e) => onChange(e, "email")}
-            keyboardType="email-address"
-            value={formData.email}
-          />
-        </View>
-        <View style={styles.errorContainer}>
-          <Text style={styles.textError}>{errorEmail}</Text>
-        </View>
-      </View>
-      <View style={styles.inputComponent}>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Ingresa tu contraseña..."
-            secureTextEntry={!showPassword}
-            onChange={(e) => onChange(e, "password")}
-            value={formData.password}
-          />
-          <Ionicons
-            name={showPassword ? "eye-off-outline" : "eye-outline"}
-            size={26}
-            color={THEME.colors.darkgray}
-            onPress={() => setShowPassword(!showPassword)}
-          />
-        </View>
-        <View style={styles.errorContainer}>
-          <Text style={styles.textError}>{errorPassword}</Text>
-        </View>
-      </View>
-
+      <CustomInput
+        name="email"
+        placeholder="Ingresá tu email..."
+        control={control}
+        rules={{
+          required: "Email es requerido",
+          pattern: {
+            value: EMAIL_REGEX,
+            message: "Introduzca un email válido",
+          },
+        }}
+      />
+      <CustomInput
+        name="password"
+        placeholder="Ingresá tu contraseña..."
+        control={control}
+        rules={{
+          required: "Contraseña es requerido",
+          minLength: { value: 8, message: "Mínimo 8 caracteres" },
+        }}
+        secureTextEntry
+        showPassword={showPassword}
+        setShowPassword={setShowPassword}
+        passwordIcon
+      />
       <Button
         title="Iniciar Sesión"
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
-        onPress={() => doLogin()}
+        onPress={handleSubmit(onSubmitLogin)}
       />
       <Button
         title="Iniciar Sesión con Google"
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btnGoogle}
-        // onPress={googleSignInAsync}
-        onPress={() => console.log("signin with google")}
+        onPress={signInWithGoogleHandle}
         icon={
           <Icon
             name="google"
@@ -196,7 +120,3 @@ export default function LoginForm() {
     </View>
   );
 }
-
-const defaultFormValues = () => {
-  return { email: "", password: "" };
-};
