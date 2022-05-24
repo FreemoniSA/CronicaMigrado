@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text } from "react-native";
 import Button from "../../components/Button";
 import Img from "../../components/Img";
@@ -7,15 +7,37 @@ import styles from "./styles";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import THEME from "../../utils/constants/theme";
 import useGetUserRole from "../../hooks/useGetUserRole";
+import useAppContext from "../../context/useAppContext";
+import { useQuery } from "react-query";
+import { getDataUser } from "../../services";
+import * as Clipboard from "expo-clipboard";
 const Profile = () => {
+  const [copyCode, setCopyCode] = useState("");
   const role = useGetUserRole();
+  const { user } = useAppContext();
+  const { data: dataUser, refetch: refetchDataUser } = useQuery(
+    ["dataUser", user],
+    () => getDataUser(user),
+    { enabled: !!user }
+  );
+
+  const copyToClipboard = () => {
+    if(!dataUser.freemoniCode) return;
+    Clipboard.setString(dataUser.freemoniCode);
+  };
+
+  // const fetchedCopiedCode = async () => {
+  //   const code = await Clipboard.getStringAsync();
+  //   console.log(code);
+  //   setCopyCode(code);
+  // };
   return (
     <View style={styles.container}>
       <View style={styles.containerUserData}>
         <Img srcImg={userprof.image} />
         <View>
-          <Text style={[styles.userDataTextName]}>{userprof.name}</Text>
-          <Text style={[styles.userDataText]}>{userprof.email}</Text>
+          <Text style={[styles.userDataTextName]}>{dataUser?.displayName}</Text>
+          <Text style={[styles.userDataText]}>{dataUser?.email}</Text>
           <Text style={[styles.userDataText]}>{userprof.status}</Text>
         </View>
       </View>
@@ -25,8 +47,8 @@ const Profile = () => {
           Úsalo para vincular tus cuentas en Crónica
         </Text>
         <View style={styles.codeContainer}>
-          <Text style={styles.codeText}>XRJ684</Text>
-          <Button text="Copiar" color="red" />
+          <Text style={styles.codeText}>{dataUser?.freemoniCode}</Text>
+          <Button text="Copiar" color="red" onPress={copyToClipboard} />
         </View>
       </View>
       {role === "classic" && (

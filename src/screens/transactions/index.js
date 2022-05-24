@@ -30,10 +30,6 @@ const Transactions = () => {
     getTransactionsByUser
   );
 
-  console.log(dataUser);
-  console.log(dataAccount);
-  console.log(transactionsByUser);
-
   return (
     <View style={styles.container}>
       {transactionsByUser && (

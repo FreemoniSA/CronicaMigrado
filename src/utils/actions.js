@@ -1,56 +1,56 @@
-import { firebaseApp } from "./firebase";
-// import { FireSQL } from 'firesql'
-import * as firebase from "firebase";
-import "firebase/firestore";
-import * as Notifications from "expo-notifications";
-import Constans from "expo-constants";
+// import { firebaseApp } from "./firebase";
+// // import { FireSQL } from 'firesql'
+// import * as firebase from "firebase";
+// import "firebase/firestore";
+// import * as Notifications from "expo-notifications";
+// import Constans from "expo-constants";
 
-import { fileToBlob } from "./helpers";
-import { map } from "lodash";
-import { Alert } from "react-native";
-import { Platform } from "react-native";
+// import { fileToBlob } from "./helpers";
+// import { map } from "lodash";
+// import { Alert } from "react-native";
+// import { Platform } from "react-native";
 
-const db = firebase.firestore(firebaseApp);
-console.log("Se inicializa actions.js");
-// const fireSQL = new FireSQL(firebase.firestore(), { includeId: "id" })
+// const db = firebase.firestore(firebaseApp);
+// console.log("Se inicializa actions.js");
+// // const fireSQL = new FireSQL(firebase.firestore(), { includeId: "id" })
 
-export const isUserLogged = () => {
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) return true;
-  });
-  return false;
-};
+// export const isUserLogged = () => {
+//   firebase.auth().onAuthStateChanged((user) => {
+//     if (user) return true;
+//   });
+//   return false;
+// };
 
-export const getCurrentUser = () => {
-  return firebase.auth().currentUser;
-};
+// export const getCurrentUser = () => {
+//   return firebase.auth().currentUser;
+// };
 
-export const closeSession = () => {
-  return firebase.auth().signOut();
-};
+// export const closeSession = () => {
+//   return firebase.auth().signOut();
+// };
 
-export const registerUser = async (email, password) => {
-  const result = { statusResponse: true, error: null };
-  try {
-    await firebase.auth().createUserWithEmailAndPassword(email, password);
-  } catch (error) {
-    console.log(error);
-    result.statusResponse = false;
-    result.error = "Este correo ya ha sido registrado.";
-  }
-  return result;
-};
+// export const registerUser = async (email, password) => {
+//   const result = { statusResponse: true, error: null };
+//   try {
+//     await firebase.auth().createUserWithEmailAndPassword(email, password);
+//   } catch (error) {
+//     console.log(error);
+//     result.statusResponse = false;
+//     result.error = "Este correo ya ha sido registrado.";
+//   }
+//   return result;
+// };
 
-export const loginWithEmailAndPassword = async (email, password) => {
-  const result = { statusResponse: true, error: null };
-  try {
-    await firebase.auth().signInWithEmailAndPassword(email, password);
-  } catch (error) {
-    result.statusResponse = false;
-    result.error = "Usuario o contraseña no válidos.";
-  }
-  return result;
-};
+// export const loginWithEmailAndPassword = async (email, password) => {
+//   const result = { statusResponse: true, error: null };
+//   try {
+//     await firebase.auth().signInWithEmailAndPassword(email, password);
+//   } catch (error) {
+//     result.statusResponse = false;
+//     result.error = "Usuario o contraseña no válidos.";
+//   }
+//   return result;
+// };
 
 // export const uploadImage = async(image, path, name) => {
 //     const result = { statusResponse: false, error: null, url: null }
@@ -115,16 +115,16 @@ export const loginWithEmailAndPassword = async (email, password) => {
 //     return result
 // }
 
-export const addDocumentWithoutId = async (collection, data) => {
-  const result = { statusResponse: true, error: null };
-  try {
-    await db.collection(collection).add(data);
-  } catch (error) {
-    result.statusResponse = false;
-    result.error = error;
-  }
-  return result;
-};
+// export const addDocumentWithoutId = async (collection, data) => {
+//   const result = { statusResponse: true, error: null };
+//   try {
+//     await db.collection(collection).add(data);
+//   } catch (error) {
+//     result.statusResponse = false;
+//     result.error = error;
+//   }
+//   return result;
+// };
 
 // export const getRestaurants = async(limitRestaurants) => {
 //     const result = { statusResponse: true, error: null, restaurants: [], startRestaurant: null }
@@ -305,100 +305,100 @@ export const addDocumentWithoutId = async (collection, data) => {
 //     return result
 // }
 
-export const getToken = async () => {
-  if (!Constans.isDevice) {
-    Alert.alert(
-      "Debes utilizar un dispositivo físico para poder utilizar las notificaciones."
-    );
-    return;
-  }
+// export const getToken = async () => {
+//   if (!Constans.isDevice) {
+//     Alert.alert(
+//       "Debes utilizar un dispositivo físico para poder utilizar las notificaciones."
+//     );
+//     return;
+//   }
 
-  const { status: existingStatus } = await Notifications.getPermissionsAsync();
-  let finalStatus = existingStatus;
-  if (existingStatus !== "granted") {
-    const { status } = await Notifications.requestPermissionsAsync();
-    finalStatus = status;
-  }
+//   const { status: existingStatus } = await Notifications.getPermissionsAsync();
+//   let finalStatus = existingStatus;
+//   if (existingStatus !== "granted") {
+//     const { status } = await Notifications.requestPermissionsAsync();
+//     finalStatus = status;
+//   }
 
-  if (finalStatus !== "granted") {
-    Alert.alert("Debes dar permiso para acceder a las notificaciones.");
-    return;
-  }
+//   if (finalStatus !== "granted") {
+//     Alert.alert("Debes dar permiso para acceder a las notificaciones.");
+//     return;
+//   }
 
-  const token = (await Notifications.getExpoPushTokenAsync()).data;
+//   const token = (await Notifications.getExpoPushTokenAsync()).data;
 
-  if (Platform.OS == "android") {
-    Notifications.setNotificationChannelAsync("default", {
-      name: "default",
-      importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: "#FF231F7C",
-    });
-  }
+//   if (Platform.OS == "android") {
+//     Notifications.setNotificationChannelAsync("default", {
+//       name: "default",
+//       importance: Notifications.AndroidImportance.MAX,
+//       vibrationPattern: [0, 250, 250, 250],
+//       lightColor: "#FF231F7C",
+//     });
+//   }
 
-  return token;
-};
+//   return token;
+// };
 
-export const addDocumentWithId = async (collection, data, doc) => {
-  const result = { statusResponse: true, error: null };
-  try {
-    await db.collection(collection).doc(doc).set(data);
-  } catch (error) {
-    result.statusResponse = false;
-    result.error = error;
-  }
-  return result;
-};
+// export const addDocumentWithId = async (collection, data, doc) => {
+//   const result = { statusResponse: true, error: null };
+//   try {
+//     await db.collection(collection).doc(doc).set(data);
+//   } catch (error) {
+//     result.statusResponse = false;
+//     result.error = error;
+//   }
+//   return result;
+// };
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: true,
-    shouldSetBadge: true,
-  }),
-});
+// Notifications.setNotificationHandler({
+//   handleNotification: async () => ({
+//     shouldShowAlert: true,
+//     shouldPlaySound: true,
+//     shouldSetBadge: true,
+//   }),
+// });
 
-export const startNotifications = (notificationListener, responseListener) => {
-  notificationListener.current = Notifications.addNotificationReceivedListener(
-    (notification) => {
-      console.log(notification);
-    }
-  );
-  responseListener.current =
-    Notifications.addNotificationResponseReceivedListener((notification) => {
-      console.log(notification);
-    });
-  return () => {
-    Notifications.removeNotificationSubscription(notificationListener);
-    Notifications.removeNotificationSubscription(responseListener);
-  };
-};
+// export const startNotifications = (notificationListener, responseListener) => {
+//   notificationListener.current = Notifications.addNotificationReceivedListener(
+//     (notification) => {
+//       console.log(notification);
+//     }
+//   );
+//   responseListener.current =
+//     Notifications.addNotificationResponseReceivedListener((notification) => {
+//       console.log(notification);
+//     });
+//   return () => {
+//     Notifications.removeNotificationSubscription(notificationListener);
+//     Notifications.removeNotificationSubscription(responseListener);
+//   };
+// };
 
-export const sendPushNotification = async (message) => {
-  let response = false;
-  await fetch("https://exp.host/--/api/v2/push/send", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Accept-encoding": "gzip, deflate",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(message),
-  }).then(() => (response = true));
-  return response;
-};
+// export const sendPushNotification = async (message) => {
+//   let response = false;
+//   await fetch("https://exp.host/--/api/v2/push/send", {
+//     method: "POST",
+//     headers: {
+//       Accept: "application/json",
+//       "Accept-encoding": "gzip, deflate",
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify(message),
+//   }).then(() => (response = true));
+//   return response;
+// };
 
-export const setNotificationMessage = (token, title, body, data) => {
-  const message = {
-    to: token,
-    sound: "default",
-    title: title,
-    body: body,
-    data: data,
-  };
+// export const setNotificationMessage = (token, title, body, data) => {
+//   const message = {
+//     to: token,
+//     sound: "default",
+//     title: title,
+//     body: body,
+//     data: data,
+//   };
 
-  return message;
-};
+//   return message;
+// };
 
 // export const getUsersFavorite = async(restaurantId) => {
 //     const result = { statusResponse: true, error: null, users: [] }
@@ -420,13 +420,13 @@ export const setNotificationMessage = (token, title, body, data) => {
 //     return result
 // }
 
-export const sendEmailResetPassword = async (email) => {
-  const result = { statusResponse: true, error: null };
-  try {
-    await firebase.auth().sendPasswordResetEmail(email);
-  } catch (error) {
-    result.statusResponse = false;
-    result.error = error;
-  }
-  return result;
-};
+// export const sendEmailResetPassword = async (email) => {
+//   const result = { statusResponse: true, error: null };
+//   try {
+//     await firebase.auth().sendPasswordResetEmail(email);
+//   } catch (error) {
+//     result.statusResponse = false;
+//     result.error = error;
+//   }
+//   return result;
+// };

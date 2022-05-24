@@ -8,16 +8,37 @@ import styles from "./styles";
 import Separator from "../../components/Separator";
 import { useQuery } from "react-query";
 import { getCouponsAvailable } from "../../services";
-const Cronipesos = ({ route }) => {
+const Cronipesos = ({ route, navigation }) => {
   const { id, photoUrl, name, area } = route.params;
   const { data: coupons, refetch: refetchCouponsAvailable } = useQuery(
     [`coupons-${id}`, id],
     () => getCouponsAvailable(id)
   );
+
+  const onOpenModalHandle = (data) => {
+    console.log("dataToparams", data);
+    navigation.navigate({
+      name: "Modal",
+      params: {
+        id: "asdasd1",
+        data: {
+          name: data.posData.name,
+          area: data.posData.area,
+          img: data.posData.photoUrl,
+          additionalInfo: data.additionalInfo,
+          discount:data.discount,
+          type:"classic"
+        },
+      },
+    });
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
+
+      
       <Card
-        srcImg={{ uri:photoUrl }}
+        srcImg={{ uri: photoUrl }}
         size="small"
         horizontal
         borderRound
@@ -61,11 +82,9 @@ const Cronipesos = ({ route }) => {
               borderRound
               width="widthWithMinimunMargin"
               theme="classic"
-              //   onPress={() =>
-              //     navigation.navigate({ name: "Modal", params: { id: item.id } })
-              //   }
+              onPress={() => onOpenModalHandle(item)}
             >
-               <BoxGift data={item} />
+              <BoxGift data={item} />
             </Card>
           ))}
         </View>

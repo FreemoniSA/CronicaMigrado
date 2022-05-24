@@ -2,10 +2,11 @@ import { StyleSheet } from "react-native";
 import THEME from "../../utils/constants/theme";
 const styles = StyleSheet.create({
   container: {
+    flexGrow:1,
     alignItems: "center",
     backgroundColor:THEME.colors.white,
     paddingVertical:10,
-    justifyContent:"center",
+    justifyContent:"flex-start",
   },
   titleBlackContainer:{
       paddingVertical:10,

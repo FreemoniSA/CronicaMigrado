@@ -14,13 +14,12 @@ import useGetUserRole from "../../hooks/useGetUserRole";
 import logoBlack from "../../../assets/club-cronica-black.png";
 const Modal = ({ route, navigation }) => {
   const role = useGetUserRole();
-  const [data, setData] = useState(null);
-  const { id } = route.params;
-
-  useEffect(() => {
-    const findData = regalos.find((item) => item.id === id);
-    setData(findData);
-  }, []);
+  const { id, data } = route.params;
+  console.log("route", route.params)
+  // useEffect(() => {
+  //   const findData = regalos.find((item) => item.id === id);
+  //   setData(findData);
+  // }, []);
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -37,7 +36,7 @@ const Modal = ({ route, navigation }) => {
         </View>
         {data && (
           <Card
-            srcImg={data.img}
+            srcImg={{ uri:data.img }}
             size="small"
             horizontal
             shadow
@@ -53,12 +52,12 @@ const Modal = ({ route, navigation }) => {
             greatPadding
             title={
               <Text>
-                <Text style={styles.cronipesosText}>{data.balance}</Text> de
+                <Text style={styles.cronipesosText}>c$ {data.discount}</Text> de
                 regalo
               </Text>
             }
           >
-            <BoxUsageCronipesos list={data.usage} />
+            <BoxUsageCronipesos list={data.additionalInfo} />
           </Framer>
         )}
       </ScrollView>

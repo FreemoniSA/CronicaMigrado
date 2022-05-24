@@ -7,7 +7,6 @@ import THEME, {
 } from "../utils/constants/theme";
 import MyDrawer from "./Drawer";
 import { AuthStack } from "./Stacks";
-import * as firebase from "firebase";
 import useAppContext from "../context/useAppContext";
 import useGetUserRole from "../hooks/useGetUserRole";
 const Navigator = () => {
