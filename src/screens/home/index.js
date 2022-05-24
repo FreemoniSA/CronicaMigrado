@@ -16,7 +16,14 @@ import PopUp from "../../components/PopUp";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import styles from "./styles";
 import Button from "../../components/Button";
-import { getTransactionsByUser, getSalePoints, getDataUser, getAccountData, getCouponsAvailable } from "../../services";
+import {
+  getTransactionsByUser,
+  getSalePoints,
+  getDataUser,
+  getAccountData,
+  getCouponsAvailable,
+  traerUsuarios,
+} from "../../services";
 import { useQuery } from "react-query";
 import { useRefreshOnFocus } from "../../hooks/useRefreshOnFocus";
 import BoxTransaction from "../../components/Boxes/BoxTransaction";
@@ -24,6 +31,7 @@ import useAppContext from "../../context/useAppContext";
 const Home = ({ navigation }) => {
   const [visible, setVisible] = useState(true);
   const { user } = useAppContext();
+  console.log(user);
   const { data: dataUser, refetch: refetchDataUser } = useQuery(
     ["dataUser", user],
     () => getDataUser(user),
@@ -37,16 +45,15 @@ const Home = ({ navigation }) => {
 
   const { data: transactionsByUser } = useQuery(
     ["transactionsByUser", dataUser, dataAccount],
-    getTransactionsByUser
+    () => getTransactionsByUser(dataUser, dataAccount),
+    { enabled: !!dataAccount }
   );
   const { data: salePoints, refetch: refetchSalePoints } = useQuery(
     ["salePoints"],
     getSalePoints
   );
 
-  
   useRefreshOnFocus(refetchSalePoints);
- 
 
   const onShareApp = () => {
     Share.share({
@@ -111,12 +118,14 @@ const Home = ({ navigation }) => {
                   <Card
                     srcImg={{ uri: item.photoUrl }}
                     description={item.name}
-                    onPress={() => navigation.navigate("Cronipesos", {
-                      id:item.mainPosId,
-                      photoUrl:item.photoUrl,
-                      name:item.name,
-                      area:item.area
-                    })}
+                    onPress={() =>
+                      navigation.navigate("Cronipesos", {
+                        id: item.mainPosId,
+                        photoUrl: item.photoUrl,
+                        name: item.name,
+                        area: item.area,
+                      })
+                    }
                   />
                 )}
                 keyExtractor={(item, index) => index.toString()}

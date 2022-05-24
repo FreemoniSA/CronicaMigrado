@@ -4,10 +4,10 @@ import BASE_URL, { CRONICA_ID } from "../utils/constants/baseUrl";
 import { getIdToken } from "firebase/auth";
 export const traerUsuarios = async () => {
   try {
-    const token = await getIdToken(auth.currentUser)
+    const token = await getIdToken(auth.currentUser);
     const res = await fetch(`https://jsonplaceholder.typicode.com/users`);
     const data = await res.json();
-    console.log("se ejecuta refetch", data)
+    console.log("se ejecuta refetch", data);
     return data;
   } catch (error) {
     throw error;
@@ -16,7 +16,7 @@ export const traerUsuarios = async () => {
 
 export const createUserFreemoniDb = async (dataUser) => {
   try {
-    const token = await getIdToken(auth.currentUser)
+    const token = await getIdToken(auth.currentUser);
     const res = await fetch(
       `${BASE_URL}/api/v1/users/newconsumerfromthirdparty`,
       {
@@ -45,7 +45,7 @@ export const createUserFreemoniDb = async (dataUser) => {
 
 export const createUserSocialAuthFreemoniDb = async (dataUser) => {
   try {
-    const token = await getIdToken(auth.currentUser)
+    const token = await getIdToken(auth.currentUser);
     const res = await fetch(
       `${BASE_URL}/api/v1/users/newconsumerfromsocialnetapps`,
       {
@@ -74,9 +74,7 @@ export const createUserSocialAuthFreemoniDb = async (dataUser) => {
 
 export const getDataUser = async (dataUser) => {
   try {
-    console.log("currentuser", auth.currentUser)  
-    const token = await getIdToken(auth.currentUser)
-    console.log("token function",token)
+    const token = await getIdToken(auth.currentUser);
     const res = await fetch(`${BASE_URL}/api/v1/users/${dataUser.uid}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -84,11 +82,10 @@ export const getDataUser = async (dataUser) => {
         appname: "club-cronica-app",
       },
     });
-    console.log("Se ejecuta traer a user")
     const data = await res.json();
     return data;
   } catch (error) {
-      console.log(error.message)
+    console.log(error.message);
     throw error;
   }
 };
@@ -115,7 +112,7 @@ export const getAccountData = async (dataUser) => {
 
 export const getNotifications = async () => {
   try {
-    const token = await getIdToken(auth.currentUser)
+    const token = await getIdToken(auth.currentUser);
     const res = await fetch(
       `${BASE_URL}/api/v1/notifications/listwithfilters?limit=10`,
       {
@@ -135,7 +132,7 @@ export const getNotifications = async () => {
 
 export const getTransactionsByUser = async () => {
   try {
-    const token = await getIdToken(auth.currentUser)
+    const token = await getIdToken(auth.currentUser);
     const res = await fetch(
       `${BASE_URL}/api/v2/transactions/byuser/bqQQbPd1k2N0OGlz0rdhkouiIDE3?accountId=rk6vz2IeO9c9G3giIpN2&limit=3`,
       {
@@ -155,7 +152,7 @@ export const getTransactionsByUser = async () => {
 
 export const getSalePoints = async () => {
   try {
-    const token = await getIdToken(auth.currentUser)
+    const token = await getIdToken(auth.currentUser);
     const res = await fetch(
       `${BASE_URL}/api/v1/salepoints/${CRONICA_ID}/listwithfilters?onlyHome=true&onlyMainPos=true`,
       {
@@ -175,7 +172,7 @@ export const getSalePoints = async () => {
 
 export const getCouponsAvailable = async (posId) => {
   try {
-    const token = await getIdToken(auth.currentUser)
+    const token = await getIdToken(auth.currentUser);
     const res = await fetch(
       `${BASE_URL}/api/v1/coupons/availablecoupons/${CRONICA_ID}?posId=${posId}`,
       {

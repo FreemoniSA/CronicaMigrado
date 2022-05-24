@@ -64,7 +64,7 @@ const MyDrawer = () => {
           ),
         }}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Gifts"
         component={GiftsStack}
         options={{
@@ -77,7 +77,7 @@ const MyDrawer = () => {
             />
           ),
         }}
-      />
+      /> */}
       <Drawer.Screen
         name="Transactions"
         component={TransactionStack}

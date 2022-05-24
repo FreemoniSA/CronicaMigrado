@@ -128,11 +128,11 @@ export const getNotifications = async () => {
   }
 };
 
-export const getTransactionsByUser = async () => {
+export const getTransactionsByUser = async (dataUser, dataAccount) => {
   try {
     const token = await auth().currentUser.getIdToken();
     const res = await fetch(
-      `${BASE_URL}/api/v2/transactions/byuser/bqQQbPd1k2N0OGlz0rdhkouiIDE3?accountId=rk6vz2IeO9c9G3giIpN2&limit=3`,
+      `${BASE_URL}/api/v2/transactions/byuser/${dataUser.userId}?accountId=${dataAccount[0].accountId}&limit=3`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

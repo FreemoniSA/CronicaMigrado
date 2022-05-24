@@ -18,24 +18,12 @@ export const AppContextProvider = ({ children }) => {
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
-      console.log("dataUser effecto", user);
       setUser(user);
     });
     return unsub;
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const token = await auth.currentUser.getIdToken();
-        console.log("token", token);
-      } catch (error) {
-        console.log("error token", error);
-      }
-    })();
-  }, [user]);
-
-  console.log("user", user);
+  
 
   const values = useMemo(
     () => ({
