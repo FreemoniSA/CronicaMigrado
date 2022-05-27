@@ -24,7 +24,8 @@ export default function LoginForm() {
   GoogleSignin.configure({
     webClientId:
       "762222987203-ldf0406b8tkplf9h196jrclg3fdrftke.apps.googleusercontent.com",
-      offlineAccess:false
+      offlineAccess:false,
+      androidClientId:"762222987203-b5k22dmn1rmrkjaesggr0j5ipr6n7432.apps.googleusercontent.com"
   });
 
   const signInWithGoogleHandle = async () => {
