@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, FlatList } from "react-native";
 import BoxTransaction from "../../components/Boxes/BoxTransaction";
 import Card from "../../components/Card";
@@ -12,23 +12,27 @@ import {
   getTransactionsByUser,
 } from "../../services";
 import useAppContext from "../../context/useAppContext";
+import { useRefreshOnFocus } from "../../hooks/useRefreshOnFocus";
 const Transactions = () => {
   const { user } = useAppContext();
-  const { data: dataUser, refetch: refetchDataUser } = useQuery(
+  const { data: dataUser } = useQuery(
     ["dataUser", user],
     () => getDataUser(user),
     { enabled: !!user }
   );
-  const { data: dataAccount, refetch: refetchDataAccount } = useQuery(
+  const { data: dataAccount } = useQuery(
     ["dataAccount", dataUser],
     () => getAccountData(dataUser),
     { enabled: !!dataUser }
   );
 
-  const { data: transactionsByUser } = useQuery(
+  const { data: transactionsByUser, refetch:refetchGetTransactions } = useQuery(
     ["transactionsByUser", dataUser, dataAccount],
-    getTransactionsByUser
+    () => getTransactionsByUser(dataUser, dataAccount),
+    { enabled: !!dataAccount }
   );
+
+  useRefreshOnFocus(refetchGetTransactions)
 
   return (
     <View style={styles.container}>

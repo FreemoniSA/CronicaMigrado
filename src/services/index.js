@@ -5,13 +5,12 @@ export const traerUsuarios = async () => {
   try {
     const res = await fetch(`https://jsonplaceholder.typicode.com/users`);
     const data = await res.json();
-    console.log("se ejecuta refetch")
     return data;
   } catch (error) {
     throw error;
   }
 };
-
+console.log
 export const createUserFreemoniDb = async (dataUser) => {
   try {
     const token = await auth().currentUser.getIdToken();
@@ -66,6 +65,7 @@ export const createUserSocialAuthFreemoniDb = async (dataUser) => {
     const data = await res.json();
     return data;
   } catch (error) {
+    
     throw error;
   }
 };
@@ -80,7 +80,6 @@ export const getDataUser = async (dataUser) => {
         appname: "club-cronica-app",
       },
     });
-    console.log("Se ejecuta traer a user")
     const data = await res.json();
     return data;
   } catch (error) {

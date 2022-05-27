@@ -31,7 +31,6 @@ import useAppContext from "../../context/useAppContext";
 const Home = ({ navigation }) => {
   const [visible, setVisible] = useState(true);
   const { user } = useAppContext();
-  console.log(user);
   const { data: dataUser, refetch: refetchDataUser } = useQuery(
     ["dataUser", user],
     () => getDataUser(user),
@@ -42,7 +41,6 @@ const Home = ({ navigation }) => {
     () => getAccountData(dataUser),
     { enabled: !!dataUser }
   );
-
   const { data: transactionsByUser } = useQuery(
     ["transactionsByUser", dataUser, dataAccount],
     () => getTransactionsByUser(dataUser, dataAccount),

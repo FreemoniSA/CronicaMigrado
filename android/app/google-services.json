@@ -15,6 +15,30 @@
       },
       "oauth_client": [
         {
+          "client_id": "762222987203-b5k22dmn1rmrkjaesggr0j5ipr6n7432.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.freemoni.clubcronicaapp",
+            "certificate_hash": "8eb66664d3a2e660f2f787dfc0ee9e3dcad89465"
+          }
+        },
+        {
+          "client_id": "762222987203-chlfk0dnm207ilr62cak206hce9ducg0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.freemoni.clubcronicaapp",
+            "certificate_hash": "02f3d6e6cc7c2fca1d03d403b83acdc0aa46700d"
+          }
+        },
+        {
+          "client_id": "762222987203-ru0mlqc4q5rtk1kig6ano5smka6ndn3a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.freemoni.clubcronicaapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "762222987203-ldf0406b8tkplf9h196jrclg3fdrftke.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -28,7 +52,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "762222987203-ldf0406b8tkplf9h196jrclg3fdrftke.apps.googleusercontent.com",
+              "client_id": "762222987203-1s1rgvmks01ftfer7kbhllmiiannd5nt.apps.googleusercontent.com",
               "client_type": 3
             },
             {

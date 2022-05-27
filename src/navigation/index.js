@@ -12,14 +12,26 @@ import useGetUserRole from "../hooks/useGetUserRole";
 const Navigator = () => {
   //const [isLogged, setIsLogged] = useState(false);
   const role = useGetUserRole();
-  const { user } = useAppContext()
+  const { user, register } = useAppContext();
+  if (!user || !register) {
+    return (
+      <>
+        <StatusBar backgroundColor={THEME.colors.black} />
+        <NavigationContainer
+          theme={role === "classic" ? APP_THEME_CLASSIC : APP_THEME_BLACK}
+        >
+          <AuthStack />
+        </NavigationContainer>
+      </>
+    );
+  }
   return (
     <>
       <StatusBar backgroundColor={THEME.colors.black} />
       <NavigationContainer
         theme={role === "classic" ? APP_THEME_CLASSIC : APP_THEME_BLACK}
       >
-        {user ? <MyDrawer /> : <AuthStack />}
+        <MyDrawer />
       </NavigationContainer>
     </>
   );

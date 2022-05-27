@@ -11,11 +11,10 @@ import CustomInput from "../CustomInput";
 import { EMAIL_REGEX } from "../../utils/constants/regex";
 import { createUserSocialAuthFreemoniDb, getAccountData, getDataUser } from "../../services";
 import useAppContext from "../../context/useAppContext";
-
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { setAccountUser, setUserData } = useAppContext()
+  const { setRegister } = useAppContext()
   const {
     control,
     handleSubmit,
@@ -25,21 +24,19 @@ export default function LoginForm() {
   GoogleSignin.configure({
     webClientId:
       "762222987203-ldf0406b8tkplf9h196jrclg3fdrftke.apps.googleusercontent.com",
+      offlineAccess:false
   });
-
 
   const signInWithGoogleHandle = async () => {
     try {
+      setRegister(false);
       const { idToken } = await GoogleSignin.signIn();
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
       const user_sign_in = await auth().signInWithCredential(googleCredential);
       if(user_sign_in.additionalUserInfo.isNewUser){
         const dataUser = await createUserSocialAuthFreemoniDb(user_sign_in.user)
       }
-      const getUserData = await getDataUser(user_sign_in.user);
-      const getAccountUserData = await getAccountData(getUserData);
-      setUserData(getUserData);
-      setAccountUser(getAccountUserData);
+      setRegister(true)
     } catch (error) {
       console.log(error);
     }
