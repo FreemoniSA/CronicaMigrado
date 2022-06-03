@@ -23,17 +23,17 @@
 ## Classic Category Gifts
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/cronipesos-classic.png)
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/list-gifts.png)
-![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/usecronipesos.png)
-![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/converttoblack.png)
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/DEVELOP/screenshots/fix2.png)
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/DEVELOP/screenshots/fix3.png)
 
 ## Black Category Gifts
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/cronipesos-black.png)
-![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/modal-black.png)
-![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/modal-classic.png)
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/fixcronipesos.png)
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/DEVELOP/screenshots/fix1.png)
 
 # Cronica Black
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/drawer-black.png)
-![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/cronica-black.png)
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/DEVELOP/screenshots/cronica-black.png)
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/profile-black.png)
 
 ## Authentication
