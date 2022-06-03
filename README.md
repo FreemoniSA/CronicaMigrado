@@ -33,7 +33,7 @@
 
 # Cronica Black
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/drawer-black.png)
-![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/home-black.png)
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/cronica-black.png)
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/profile-black.png)
 
 ## Authentication
