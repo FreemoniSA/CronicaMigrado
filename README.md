@@ -28,7 +28,7 @@
 
 ## Black Category Gifts
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/cronipesos-black.png)
-![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/fixcronipesos.png)
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/modal-black.png)
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/DEVELOP/screenshots/fix1.png)
 
 # Cronica Black
