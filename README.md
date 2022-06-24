@@ -1,5 +1,10 @@
 # Initial APP Structure - Club Crónica
 
+## New banner 
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/DEVELOP/screenshots/banner1.png)
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/DEVELOP/screenshots/banner2.png)
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/DEVELOP/screenshots/banner3.png)
+
 ## Modal - Share app - fix cronipesos modal 
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/sharemodal.png)
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/app-structure/screenshots/sharebutton.png)
