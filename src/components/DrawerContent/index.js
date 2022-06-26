@@ -19,8 +19,10 @@ import useGetUserRole from "../../hooks/useGetUserRole";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import THEME from "../../utils/constants/theme";
 import auth from "@react-native-firebase/auth";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 const CustomDrawerContent = (props) => {
   const role = useGetUserRole();
+  const insets = useSafeAreaInsets();
   const onShareApp = () => {
     Share.share({
       message:
@@ -41,7 +43,7 @@ const CustomDrawerContent = (props) => {
       {...props}
       contentContainerStyle={{ paddingTop: 0 }}
     >
-      <View style={styles.container}>
+      <View style={[styles.container, { paddingTop: insets.top }]}>
         <View>
           <Image
             source={role === "classic" ? cronicaDrawer : cronicaDrawerBlack}

@@ -32,6 +32,7 @@ const MyDrawer = () => {
         },
         drawerLabelStyle: {
           fontSize: THEME.fontSize.subheading,
+          fontFamily:THEME.fontFamily.mainRegular
         },
         headerShown: false,
       }}

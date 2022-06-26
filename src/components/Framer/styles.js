@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     color: THEME.colors.darkgray,
     fontSize: THEME.fontSize.subheading,
     paddingBottom: 5,
-    fontWeight: "600",
+    fontFamily:THEME.fontFamily.mainRegular
   },
   containerFooter: {
     borderTopColor: THEME.colors.lightgray,
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   textFooter: {
     color: THEME.colors.red,
     fontSize: THEME.fontSize.subheading,
-    fontWeight: "600",
+    fontFamily:THEME.fontFamily.mainRegular
     
   },
 });

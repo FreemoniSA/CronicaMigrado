@@ -18,18 +18,20 @@ const styles = StyleSheet.create({
   },
   textWelcomeHeader: {
     color: THEME.colors.white,
-    fontSize: THEME.fontSize.heading,
+    fontSize: THEME.fontSize.subheading,
     paddingLeft: 8,
-    fontWeight: "700",
+    fontFamily:THEME.fontFamily.mainBold
   },
   containerCronipesosEnabled: {
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 8,
+    minHeight:90
   },
   textCronipesos: {
     textAlign: "center",
     color: THEME.colors.white,
+    fontFamily:THEME.fontFamily.mainBold
   },
   balance: {
     fontSize: 30,
@@ -37,7 +39,8 @@ const styles = StyleSheet.create({
   textUserRole: {
     paddingHorizontal: 10,
     paddingVertical: 5,
-    fontSize:THEME.fontSize.description
+    fontSize:THEME.fontSize.description,
+    fontFamily:THEME.fontFamily.secondaryBold
   },
   textUserRoleColor:{
     backgroundColor: THEME.colors.darkred,

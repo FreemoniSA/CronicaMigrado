@@ -34,6 +34,8 @@ const styles = StyleSheet.create({
     fontSize: THEME.fontSize.description,
     textAlign: "center",
     color: THEME.colors.darkgray,
+    fontFamily:THEME.fontFamily.mainRegular,
+    paddingTop:5
   },
   fullWidth: {
     width: THEME.width.fullWidth,

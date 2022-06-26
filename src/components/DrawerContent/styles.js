@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
+import THEME from "../../utils/constants/theme";
 const styles = StyleSheet.create({
   container: {
     height: Dimensions.get("window").height,
@@ -16,9 +17,10 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   footerItem: {
-    fontSize: 16,
+    fontSize: 13,
     color: "#5E5C5C",
     paddingRight: 10,
+    fontFamily:THEME.fontFamily.mainRegular,
   },
   powerBy: {
     flexDirection: "row",
@@ -30,8 +32,9 @@ const styles = StyleSheet.create({
   },
   shareButtonText:{
     fontSize: 16,
-    color: "#5E5C5C",
-    paddingLeft:40
+    color: THEME.colors.blackCronica,
+    paddingLeft:40,
+    fontFamily:THEME.fontFamily.mainRegular,
   }
 });
 

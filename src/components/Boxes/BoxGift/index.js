@@ -5,7 +5,7 @@ const BoxGift = ({ data }) => {
   const { type } = data;
   return (
     <View style={styles.container}>
-      <View style={{ width: "40%" }}>
+      <View style={{ width: "45%" }}>
         <Text style={[styles.store, type === "black" && styles.themeBlack]}>
           {data.posData.name}
         </Text>
@@ -14,7 +14,7 @@ const BoxGift = ({ data }) => {
         </Text>
       </View>
       <View style={styles.separator}></View>
-      <View style={{ width: "40%" }}>
+      <View style={{ width: "35%" }}>
         <Text style={[styles.balance, type === "black" && styles.themeBlack]}>
           c$ {data.discount}
         </Text>

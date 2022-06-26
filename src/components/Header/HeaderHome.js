@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Dimensions, ActivityIndicator } from "react-native";
 import styles from "./styles";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import THEME from "../../utils/constants/theme";
@@ -9,7 +9,9 @@ import { getAccountData, getDataUser } from "../../services";
 import useAppContext from "../../context/useAppContext";
 import { useQuery } from "react-query";
 import { useRefreshOnFocus } from "../../hooks/useRefreshOnFocus";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 const HeaderHome = ({ title, navigation, route }) => {
+  const insets = useSafeAreaInsets();
   const role = useGetUserRole();
   const { colors } = useTheme();
   const { user } = useAppContext();
@@ -27,7 +29,13 @@ const HeaderHome = ({ title, navigation, route }) => {
   useRefreshOnFocus(refetchDataAccount);
 
   return (
-    <View style={{ backgroundColor: colors.card, padding: 12 }}>
+    <View
+      style={{
+        backgroundColor: colors.card,
+        padding: 12,
+        paddingTop: insets.top + 5,
+      }}
+    >
       <View style={styles.containerAppHeader}>
         <View style={styles.containerWelcomeHeader}>
           <Ionicon
@@ -50,23 +58,22 @@ const HeaderHome = ({ title, navigation, route }) => {
         </View>
       </View>
       <View style={styles.containerCronipesosEnabled}>
-        <Text style={[styles.textCronipesos, styles.balance]}>
-          C$
-          <Text style={{ fontSize: 40, fontWeight: "700" }}>
-            {dataAccount &&
-              dataAccount.length > 0 &&
-              dataAccount[0].availableBalance}
-          </Text>
-        </Text>
-        <Text
-          style={[
-            styles.textCronipesos,
-            styles.textUserRole,
-            role === "classic" && styles.textUserRoleColor,
-          ]}
-        >
-          CRONIPESOS - SOCIO CLASSIC
-        </Text>
+        {dataAccount && dataAccount.length > 0 && (
+          <>
+            <Text style={[styles.textCronipesos, styles.balance]}>
+              C$ 
+              <Text style={{ fontSize: 40, fontWeight: "700" }}>
+                {dataAccount &&
+                  dataAccount.length > 0 &&
+                  dataAccount[0].availableBalance}
+              </Text>
+            </Text>
+            <Text style={[styles.textCronipesos, styles.textUserRole]}>
+              CRONIPESOS - SOCIO CLASSIC
+            </Text>
+          </>
+        )}
+        {!dataAccount && <ActivityIndicator size="large" color="#fff" />}
       </View>
     </View>
   );

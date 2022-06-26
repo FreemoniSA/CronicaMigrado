@@ -5,14 +5,12 @@ const BoxGiftHeader = ({ data }) => {
   const { type } = data;
   return (
     <View style={styles.container}>
-      
-        <Text style={[styles.store, type === "black" && styles.themeBlack]}>
-          {data.name}
-        </Text>
-        <Text style={[styles.storeType, type === "black" && styles.themeBlack]}>
-          {data.area}
-        </Text>
-      
+      <Text style={[styles.store, type === "black" && styles.themeBlack]}>
+        {data.name}
+      </Text>
+      <Text style={[styles.storeType, type === "black" && styles.themeBlack]}>
+        {data.area}
+      </Text>
     </View>
   );
 };

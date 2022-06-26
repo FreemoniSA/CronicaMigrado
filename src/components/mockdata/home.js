@@ -10,18 +10,22 @@ import logo4 from "../../../assets/fakeimages/logo4.png";
 import marca1 from "../../../assets/fakeimages/marca1.png"
 import marca2 from "../../../assets/fakeimages/marca2.png"
 import marca3 from "../../../assets/fakeimages/marca3.png"
+import banner1 from "../../../assets/fakeimages/banner1.jpeg"
+import banner2 from "../../../assets/fakeimages/banner2.jpeg"
+import banner3 from "../../../assets/fakeimages/banner3.jpeg"
+import banner4 from "../../../assets/fakeimages/banner4.jpeg"
 export const regalos = [
   {
-    img: regalo5,
+    img: banner1,
   },
   {
-    img: regalo5,
+    img: banner2,
   },
   {
-    img: regalo5,
+    img: banner3,
   },
   {
-    img: regalo5,
+    img: banner4,
   },
 ];
 // export const regalos = [

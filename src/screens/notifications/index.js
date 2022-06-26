@@ -3,6 +3,7 @@ import { View, FlatList } from "react-native";
 import { useQuery } from "react-query";
 import BoxNotifications from "../../components/Boxes/BoxNotifications";
 import Card from "../../components/Card";
+import Loader from "../../components/Loader";
 import { notificaciones } from "../../components/mockdata/notifications";
 import Separator from "../../components/Separator";
 import {
@@ -13,7 +14,10 @@ import {
 } from "../../services";
 import styles from "./styles";
 const Notifications = () => {
-  const { data: notifications } = useQuery(["notifications"], getNotifications);
+  const { data: notifications, isLoading } = useQuery(
+    ["notifications"],
+    getNotifications
+  );
 
   return (
     <View style={styles.container}>
@@ -30,6 +34,7 @@ const Notifications = () => {
           )}
         />
       )}
+      {isLoading && <Loader />}
     </View>
   );
 };

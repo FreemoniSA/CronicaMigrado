@@ -8,12 +8,14 @@ import styles from "./styles";
 import Separator from "../../components/Separator";
 import { useQuery } from "react-query";
 import { getCouponsAvailable } from "../../services";
+import Loader from "../../components/Loader";
 const Cronipesos = ({ route, navigation }) => {
   const { id, photoUrl, name, area } = route.params;
-  const { data: coupons, refetch: refetchCouponsAvailable } = useQuery(
-    [`coupons-${id}`, id],
-    () => getCouponsAvailable(id)
-  );
+  const {
+    data: coupons,
+    refetch: refetchCouponsAvailable,
+    isLoading,
+  } = useQuery([`coupons-${id}`, id], () => getCouponsAvailable(id));
 
   const onOpenModalHandle = (data) => {
     console.log("dataToparams", data);
@@ -26,8 +28,8 @@ const Cronipesos = ({ route, navigation }) => {
           area: data.posData.area,
           img: data.posData.photoUrl,
           additionalInfo: data.additionalInfo,
-          discount:data.discount,
-          type:"classic"
+          discount: data.discount,
+          type: "classic",
         },
       },
     });
@@ -35,8 +37,6 @@ const Cronipesos = ({ route, navigation }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-
-      
       <Card
         srcImg={{ uri: photoUrl }}
         size="small"
@@ -46,10 +46,10 @@ const Cronipesos = ({ route, navigation }) => {
       >
         <BoxGiftHeader data={{ name, area }} />
       </Card>
-      <Separator />
+      {/* <Separator />
       <View style={styles.titleBlackContainer}>
         <Text style={styles.titleBlack}>Exclusivo Black</Text>
-      </View>
+      </View> */}
       {/* <View style={styles.containerBlack}>
         {brands.black.map((item, idx) => (
           <Card
@@ -89,6 +89,7 @@ const Cronipesos = ({ route, navigation }) => {
           ))}
         </View>
       )}
+      {isLoading && <Loader />}
     </ScrollView>
   );
 };

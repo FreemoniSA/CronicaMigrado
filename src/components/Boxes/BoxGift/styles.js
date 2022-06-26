@@ -9,20 +9,24 @@ const styles = StyleSheet.create({
     paddingHorizontal:10,
   },
   store:{
-    fontSize:THEME.fontSize.subheading
+    fontSize:THEME.fontSize.subheading,
+    fontFamily:THEME.fontFamily.mainRegular
   },
   storeType:{
     fontSize:THEME.fontSize.description,
-    color:THEME.colors.darkgray
+    color:THEME.colors.darkgray,
+    fontFamily:THEME.fontFamily.mainRegular
   },
   balance:{
     textAlign:"right",
-    fontSize:THEME.fontSize.subheading
+    fontSize:THEME.fontSize.subheading,
+    fontFamily:THEME.fontFamily.mainRegular
   },
   minAmount:{
     fontSize:THEME.fontSize.description,
     color:THEME.colors.darkgray,
-    textAlign:"right"
+    textAlign:"right",
+    fontFamily:THEME.fontFamily.mainRegular
   },
   separator:{
       borderColor:THEME.colors.lightgray,

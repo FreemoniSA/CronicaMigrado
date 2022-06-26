@@ -8,12 +8,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   store: {
-    fontSize: 15,
-    fontWeight:"300"
+    fontSize: 16,
+    fontFamily:THEME.fontFamily.mainBold
   },
   storeType: {
     fontSize: THEME.fontSize.description,
     color: THEME.colors.darkgray,
+    fontFamily:THEME.fontFamily.mainRegular
   },
   themeBlack: {
     color: THEME.colors.white,

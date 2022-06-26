@@ -4,10 +4,12 @@ import styles from "./styles";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import THEME from "../../utils/constants/theme";
 import { useTheme } from '@react-navigation/native';
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 const HeaderDefault = ({ title, navigation }) => {
+  const insets = useSafeAreaInsets();
   const { colors } = useTheme();
   return (
-    <View style={{ backgroundColor:colors.card, padding:12 }}>
+    <View style={{ backgroundColor:colors.card, padding:12, paddingTop: insets.top + 5 }}>
       <View style={styles.containerAppHeader}>
         <View style={styles.containerWelcomeHeader}>
           <Ionicon

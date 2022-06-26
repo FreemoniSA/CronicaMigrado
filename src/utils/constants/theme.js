@@ -5,18 +5,24 @@ const THEME = {
     darkred: "#BB050599",
     black: "#101010",
     darkgray: "#5E5C5C",
-    lightgray: "#E3DDDD",
+    lightgray: "#E3DDDD99",
     white: "#ffffff",
     green: "#44b16e",
     creamwhite: "#f5f5f5",
-    blackCronica:"#202020",
-    blue:"#39548b"
+    blackCronica: "#202020",
+    blue: "#39548b",
   },
   fontSize: {
     heading: 18,
     subheading: 16,
-    title:13,
+    title: 13,
     description: 10,
+  },
+  fontFamily: {
+    mainRegular: "Montserrat_500Medium",
+    mainBold: "Montserrat_700Bold",
+    secondaryRegular: "PTSans_400Regular",
+    secondaryBold: "PTSans_700Bold",
   },
   width: {
     default: Dimensions.get("window").width * 0.95,

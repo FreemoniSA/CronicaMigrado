@@ -13,6 +13,7 @@ import {
 } from "../../services";
 import useAppContext from "../../context/useAppContext";
 import { useRefreshOnFocus } from "../../hooks/useRefreshOnFocus";
+import Loader from "../../components/Loader";
 const Transactions = () => {
   const { user } = useAppContext();
   const { data: dataUser } = useQuery(
@@ -26,13 +27,17 @@ const Transactions = () => {
     { enabled: !!dataUser }
   );
 
-  const { data: transactionsByUser, refetch:refetchGetTransactions } = useQuery(
+  const {
+    data: transactionsByUser,
+    refetch: refetchGetTransactions,
+    isLoading,
+  } = useQuery(
     ["transactionsByUser", dataUser, dataAccount],
     () => getTransactionsByUser(dataUser, dataAccount),
     { enabled: !!dataAccount }
   );
 
-  useRefreshOnFocus(refetchGetTransactions)
+  useRefreshOnFocus(refetchGetTransactions);
 
   return (
     <View style={styles.container}>
@@ -54,6 +59,7 @@ const Transactions = () => {
           )}
         />
       )}
+      {isLoading && <Loader />}
     </View>
   );
 };

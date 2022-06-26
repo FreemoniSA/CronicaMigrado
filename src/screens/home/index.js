@@ -28,6 +28,11 @@ import { useQuery } from "react-query";
 import { useRefreshOnFocus } from "../../hooks/useRefreshOnFocus";
 import BoxTransaction from "../../components/Boxes/BoxTransaction";
 import useAppContext from "../../context/useAppContext";
+import Carousel from "../../components/Carousel";
+import BrandsSkeleton from "../../components/Skeletons/BrandsSkeleton";
+import TransactionsSkeleton from "../../components/Skeletons/TransactionsSkeleton";
+import FooterFixed from "../../components/FooterFixed";
+import BottomTabsHome from "../../components/BottomTabsHome";
 const Home = ({ navigation }) => {
   const [visible, setVisible] = useState(true);
   const { user } = useAppContext();
@@ -41,15 +46,17 @@ const Home = ({ navigation }) => {
     () => getAccountData(dataUser),
     { enabled: !!dataUser }
   );
-  const { data: transactionsByUser } = useQuery(
-    ["transactionsByUser", dataUser, dataAccount],
-    () => getTransactionsByUser(dataUser, dataAccount),
-    { enabled: !!dataAccount }
-  );
-  const { data: salePoints, refetch: refetchSalePoints } = useQuery(
-    ["salePoints"],
-    getSalePoints
-  );
+  const { data: transactionsByUser, isLoading: isLoadingTransactions } =
+    useQuery(
+      ["transactionsByUser", dataUser, dataAccount],
+      () => getTransactionsByUser(dataUser, dataAccount),
+      { enabled: !!dataAccount }
+    );
+  const {
+    data: salePoints,
+    refetch: refetchSalePoints,
+    isLoading: isLoadingSalePoints,
+  } = useQuery(["salePoints"], getSalePoints);
 
   useRefreshOnFocus(refetchSalePoints);
 
@@ -62,7 +69,7 @@ const Home = ({ navigation }) => {
       .catch((error) => console.log(error));
   };
   return (
-    <SafeAreaView style={{ marginTop: StatusBar.currentHeight }}>
+    <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ flex: 1, alignItems: "center" }}>
           <PopUp visible={visible}>
@@ -96,7 +103,9 @@ const Home = ({ navigation }) => {
               </View>
             </View>
           </PopUp>
-          <Framer title="Regalos destacados">
+
+          <Carousel />
+          {/* <Framer title="Regalos destacados">
             <FlatList
               data={regalos}
               horizontal={true}
@@ -106,7 +115,8 @@ const Home = ({ navigation }) => {
               keyExtractor={(item, index) => index.toString()}
               showsHorizontalScrollIndicator={false}
             />
-          </Framer>
+          </Framer> */}
+          {isLoadingSalePoints && <BrandsSkeleton />}
           {salePoints && (
             <Framer title="Seleccioná la marca">
               <FlatList
@@ -131,18 +141,21 @@ const Home = ({ navigation }) => {
               />
             </Framer>
           )}
-          <Framer title="Volvé a disfrutarlo" footer="Ver más compras">
+          {/* <Framer title="Volvé a disfrutarlo" footer="Ver más compras">
             <Card
               srcImg={marcas[3].img}
               size="small"
               description={marcas[3].desc}
               horizontal
             />
-          </Framer>
+          </Framer> */}
+          {isLoadingTransactions && <TransactionsSkeleton />}
+
           {transactionsByUser && (
             <Framer
               title="Tus últimas transacciones"
               footer="Ver más transacciones"
+              onFooterHandle={() => navigation.jumpTo("Transactions")}
             >
               {transactionsByUser.map((item, idx) => (
                 <Card
@@ -159,7 +172,10 @@ const Home = ({ navigation }) => {
           )}
         </View>
       </ScrollView>
-    </SafeAreaView>
+      <FooterFixed>
+        <BottomTabsHome navigation={navigation} />
+      </FooterFixed>
+    </View>
   );
 };
 

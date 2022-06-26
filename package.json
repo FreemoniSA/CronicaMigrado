@@ -9,6 +9,8 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo-google-fonts/montserrat": "^0.2.2",
+    "@expo-google-fonts/pt-sans": "^0.2.2",
     "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-native-community/clipboard": "^1.5.1",
     "@react-native-firebase/app": "^14.9.3",
@@ -19,6 +21,7 @@
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/stack": "^6.2.1",
     "expo": "~44.0.0",
+    "expo-app-loading": "^2.0.0",
     "expo-clipboard": "~2.1.0",
     "expo-image-picker": "^12.0.2",
     "expo-location": "^14.0.2",
@@ -38,8 +41,10 @@
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-openanything": "^0.0.6",
     "react-native-reanimated": "~2.3.1",
+    "react-native-reanimated-carousel": "^2.6.0",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
+    "react-native-skeleton-content": "^1.0.24",
     "react-native-svg": "^12.1.1",
     "react-native-vector-icons": "^9.1.0",
     "react-native-web": "0.17.1",
