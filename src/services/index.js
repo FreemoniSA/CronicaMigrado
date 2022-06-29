@@ -10,7 +10,6 @@ export const traerUsuarios = async () => {
     throw error;
   }
 };
-console.log
 export const createUserFreemoniDb = async (dataUser) => {
   try {
     const token = await auth().currentUser.getIdToken();
@@ -65,7 +64,6 @@ export const createUserSocialAuthFreemoniDb = async (dataUser) => {
     const data = await res.json();
     return data;
   } catch (error) {
-    
     throw error;
   }
 };
@@ -80,6 +78,28 @@ export const getDataUser = async (dataUser) => {
         appname: "club-cronica-app",
       },
     });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateNotifications = async () => {
+  try {
+    const token = await auth().currentUser.getIdToken();
+    const res = await fetch(
+      `${BASE_URL}/api/v1/users/updatenotificationreadingdate`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          appname: "club-cronica-app",
+        },
+        method: "patch",
+        body: JSON.stringify({}),
+      }
+    );
     const data = await res.json();
     return data;
   } catch (error) {
@@ -127,11 +147,55 @@ export const getNotifications = async () => {
   }
 };
 
+export const getMoreNotifications = async (lastId) => {
+  try {
+    const token = await auth().currentUser.getIdToken();
+    const res = await fetch(
+      `${BASE_URL}/api/v1/notifications/listwithfilters?limit=10&lastNotificationId=${lastId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          appname: "club-cronica-app",
+        },
+      }
+    );
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getTransactionsByUser = async (dataUser, dataAccount) => {
   try {
     const token = await auth().currentUser.getIdToken();
     const res = await fetch(
-      `${BASE_URL}/api/v2/transactions/byuser/${dataUser.userId}?accountId=${dataAccount[0].accountId}&limit=3`,
+      `${BASE_URL}/api/v2/transactions/byuser/${dataUser.userId}?accountId=${dataAccount[0].accountId}&limit=10`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          appname: "club-cronica-app",
+        },
+      }
+    );
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getMoreTransactionsByUser = async (
+  dataUser,
+  dataAccount,
+  trxId
+) => {
+  try {
+    const token = await auth().currentUser.getIdToken();
+    const res = await fetch(
+      `${BASE_URL}/api/v2/transactions/byuser/${dataUser.userId}?accountId=${dataAccount[0].accountId}&lastTrxId=${trxId}&limit=10`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -167,6 +231,26 @@ export const getSalePoints = async () => {
   }
 };
 
+export const getAllCouponsAvailable = async () => {
+  try {
+    const token = await auth().currentUser.getIdToken();
+    const res = await fetch(
+      `${BASE_URL}/api/v1/coupons/availablecoupons/${CRONICA_ID}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          appname: "club-cronica-app",
+        },
+      }
+    );
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getCouponsAvailable = async (posId) => {
   try {
     const token = await auth().currentUser.getIdToken();
@@ -180,6 +264,68 @@ export const getCouponsAvailable = async (posId) => {
         },
       }
     );
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+export const getGenerateCodeCoupon = async (posId) => {
+  try {
+    const token = await auth().currentUser.getIdToken();
+    const res = await fetch(
+      `${BASE_URL}/api/v1/coupons/assign/${CRONICA_ID}/${posId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          appname: "club-cronica-app",
+        },
+        method: "post",
+        body: JSON.stringify({}),
+      }
+    );
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getUserCoupon = async (trxId) => {
+  try {
+    const token = await auth().currentUser.getIdToken();
+    const res = await fetch(
+      `${BASE_URL}/api/v1/coupons/userCoupon/${CRONICA_ID}/${trxId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          appname: "club-cronica-app",
+        },
+      }
+    );
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const setDni = async (dni) => {
+  try {
+    const token = await auth().currentUser.getIdToken();
+    const res = await fetch(`${BASE_URL}/api/v1/users/setdni`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        appname: "club-cronica-app",
+      },
+      method: "post",
+      body: JSON.stringify({
+        dni,
+      }),
+    });
     const data = await res.json();
     return data;
   } catch (error) {

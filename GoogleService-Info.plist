@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>762222987203-bd4782p7ksdh6078gpe49rlh1kalm0s2.apps.googleusercontent.com</string>
+	<string>602566447454-dtdtn47iot4c0ankgaod1onqorrnm5ik.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.762222987203-bd4782p7ksdh6078gpe49rlh1kalm0s2</string>
+	<string>com.googleusercontent.apps.602566447454-dtdtn47iot4c0ankgaod1onqorrnm5ik</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>602566447454-731am6b569b55jsqt17t58gim63vll41.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBaFo2e3ABLHZJ16fmplgKbvBupu6hjiCc</string>
+	<string>AIzaSyDbzzHP6fyWzJPjlZXVbfMFLpcBSUYZpV8</string>
 	<key>GCM_SENDER_ID</key>
-	<string>762222987203</string>
+	<string>602566447454</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.freemoni.clubcronicaapp</string>
 	<key>PROJECT_ID</key>
-	<string>freemoni-consumer-dev-a6b4c</string>
+	<string>freemoni-b03fc</string>
 	<key>STORAGE_BUCKET</key>
-	<string>freemoni-consumer-dev-a6b4c.appspot.com</string>
+	<string>freemoni-b03fc.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:762222987203:ios:5876c917d7a96907d99f76</string>
+	<string>1:602566447454:ios:137b86f9cfe1ccdf7e3fcf</string>
 	<key>DATABASE_URL</key>
-	<string>https://freemoni-consumer-dev-a6b4c.firebaseio.com</string>
+	<string>https://freemoni-b03fc.firebaseio.com</string>
 </dict>
 </plist>

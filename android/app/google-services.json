@@ -1,45 +1,29 @@
 {
   "project_info": {
-    "project_number": "762222987203",
-    "firebase_url": "https://freemoni-consumer-dev-a6b4c.firebaseio.com",
-    "project_id": "freemoni-consumer-dev-a6b4c",
-    "storage_bucket": "freemoni-consumer-dev-a6b4c.appspot.com"
+    "project_number": "602566447454",
+    "firebase_url": "https://freemoni-b03fc.firebaseio.com",
+    "project_id": "freemoni-b03fc",
+    "storage_bucket": "freemoni-b03fc.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:762222987203:android:e6b0859174ba30fbd99f76",
+        "mobilesdk_app_id": "1:602566447454:android:d00e6009c63466137e3fcf",
         "android_client_info": {
           "package_name": "com.freemoni.clubcronicaapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "762222987203-b5k22dmn1rmrkjaesggr0j5ipr6n7432.apps.googleusercontent.com",
+          "client_id": "602566447454-mqqndof5dk06h7s6688ahebpfi1ipqhf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.freemoni.clubcronicaapp",
-            "certificate_hash": "8eb66664d3a2e660f2f787dfc0ee9e3dcad89465"
+            "certificate_hash": "a5f5f796eea066e5bc44937300348eca4259e62e"
           }
         },
         {
-          "client_id": "762222987203-chlfk0dnm207ilr62cak206hce9ducg0.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.freemoni.clubcronicaapp",
-            "certificate_hash": "02f3d6e6cc7c2fca1d03d403b83acdc0aa46700d"
-          }
-        },
-        {
-          "client_id": "762222987203-gp5a7kc2uglas0es1vm2qt1i9h65tg2u.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.freemoni.clubcronicaapp",
-            "certificate_hash": "f104d6b7813af17555ce708c2531e27936f5e205"
-          }
-        },
-        {
-          "client_id": "762222987203-ru0mlqc4q5rtk1kig6ano5smka6ndn3a.apps.googleusercontent.com",
+          "client_id": "602566447454-o45oodg2nh7crlhnq77tg6olsjdjla0b.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.freemoni.clubcronicaapp",
@@ -47,27 +31,95 @@
           }
         },
         {
-          "client_id": "762222987203-ldf0406b8tkplf9h196jrclg3fdrftke.apps.googleusercontent.com",
+          "client_id": "602566447454-osg0cbsnn4fhq85hvm408s14f1dj7t2r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.freemoni.clubcronicaapp",
+            "certificate_hash": "a06f2006a9598c6e65973858456cc73d322369b4"
+          }
+        },
+        {
+          "client_id": "602566447454-poagc2ico1080hn8kio5hikpj6dn9dnb.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyABP0nTc7Pqf928QiPn4hHrwLumBznEt5M"
+          "current_key": "AIzaSyCXcYrW0bK0hgHl5eGRYvkRvZWT24wIUAE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "762222987203-1s1rgvmks01ftfer7kbhllmiiannd5nt.apps.googleusercontent.com",
+              "client_id": "602566447454-5abdcfq0hlgtr2ik0bphdn2lunvpkkor.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "762222987203-15a2dfnkg03lr0lm00kak6q5vqv66153.apps.googleusercontent.com",
+              "client_id": "602566447454-5k01r50baadfuh3lbnip500tol9a5f1f.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.freemoni.start"
+                "bundle_id": "com.freemoni.shop"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:602566447454:android:9273fa849ace0a89",
+        "android_client_info": {
+          "package_name": "com.freemoni.consumer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "602566447454-fkto2qt2rktjn94sda6qgsbk6r87ki0n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.freemoni.consumer",
+            "certificate_hash": "a5f5f796eea066e5bc44937300348eca4259e62e"
+          }
+        },
+        {
+          "client_id": "602566447454-oduc0aa07u6oljo1uklk3j0g053qq5mi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.freemoni.consumer",
+            "certificate_hash": "a4bb6df3fc3932ac0e61124774308e74c25154ff"
+          }
+        },
+        {
+          "client_id": "602566447454-u4rmg9o5q28t1entofibfprjbtie0i6r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.freemoni.consumer",
+            "certificate_hash": "0c9c8dab9dfa1b2e5583ca1c3e6a19b11b383e61"
+          }
+        },
+        {
+          "client_id": "602566447454-poagc2ico1080hn8kio5hikpj6dn9dnb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXcYrW0bK0hgHl5eGRYvkRvZWT24wIUAE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "602566447454-5abdcfq0hlgtr2ik0bphdn2lunvpkkor.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "602566447454-5k01r50baadfuh3lbnip500tol9a5f1f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.freemoni.shop"
               }
             }
           ]

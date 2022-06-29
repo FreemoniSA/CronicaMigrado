@@ -1,5 +1,4 @@
-const BASE_URL =
-  "https://us-central1-freemoni-consumer-dev-a6b4c.cloudfunctions.net/api";
+const BASE_URL = "https://us-central1-freemoni-b03fc.cloudfunctions.net/api";
 export default BASE_URL;
 
-export const CRONICA_ID = "Pz0DlkxE2EpKvBHPZ8k7";
+export const CRONICA_ID = "6j8Pl0YStIHTDR0l4wTP";

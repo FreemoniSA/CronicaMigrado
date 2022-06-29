@@ -28,7 +28,9 @@ const GiftsStack = () => {
           }}
         />
       </Stack.Group>
-      <Stack.Group screenOptions={{ presentation: "modal", headerShown:false }}>
+      <Stack.Group
+        screenOptions={{ presentation: "modal", headerShown: false }}
+      >
         <Stack.Screen name="Modal" component={Modal} />
       </Stack.Group>
     </Stack.Navigator>

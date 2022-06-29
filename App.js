@@ -16,7 +16,7 @@ import {
   Montserrat_500Medium,
   Montserrat_700Bold,
 } from "@expo-google-fonts/montserrat";
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 export default function App() {
   let [fontsLoaded] = useFonts({

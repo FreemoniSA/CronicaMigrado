@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     top: "40%",
     left: "45%",
     zIndex: 3,
-    backgroundColor: THEME.colors.white,
+    //backgroundColor: THEME.colors.white,
     borderRadius: 10,
   },
   horizontal: {

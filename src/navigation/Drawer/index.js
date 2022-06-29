@@ -32,7 +32,7 @@ const MyDrawer = () => {
         },
         drawerLabelStyle: {
           fontSize: THEME.fontSize.subheading,
-          fontFamily:THEME.fontFamily.mainRegular
+          fontFamily: THEME.fontFamily.mainRegular,
         },
         headerShown: false,
       }}
@@ -43,11 +43,7 @@ const MyDrawer = () => {
         component={HomeStack}
         options={{
           drawerIcon: ({ focused, size }) => (
-            <Ionicon
-              name="home-outline"
-              size={28}
-              color={THEME.colors.red}
-            />
+            <Ionicon name="home-outline" size={28} color={THEME.colors.red} />
           ),
         }}
       />
@@ -57,28 +53,20 @@ const MyDrawer = () => {
         options={{
           title: "Perfil",
           drawerIcon: ({ focused, size }) => (
-            <Ionicon
-              name="person-outline"
-              size={28}
-              color={THEME.colors.red}
-            />
+            <Ionicon name="person-outline" size={28} color={THEME.colors.red} />
           ),
         }}
       />
-      {/* <Drawer.Screen
+      <Drawer.Screen
         name="Gifts"
         component={GiftsStack}
         options={{
           title: "Regalos",
           drawerIcon: ({ focused, size }) => (
-            <Ionicon
-              name="gift-outline"
-              size={28}
-              color={THEME.colors.red}
-            />
+            <Ionicon name="gift-outline" size={28} color={THEME.colors.red} />
           ),
         }}
-      /> */}
+      />
       <Drawer.Screen
         name="Transactions"
         component={TransactionStack}

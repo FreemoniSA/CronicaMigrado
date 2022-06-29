@@ -20,12 +20,10 @@ export default function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
   GoogleSignin.configure({
     webClientId:
-      "762222987203-ldf0406b8tkplf9h196jrclg3fdrftke.apps.googleusercontent.com",
+      "602566447454-poagc2ico1080hn8kio5hikpj6dn9dnb.apps.googleusercontent.com",
       offlineAccess:false,
-      androidClientId:"762222987203-b5k22dmn1rmrkjaesggr0j5ipr6n7432.apps.googleusercontent.com"
   });
 
   const signInWithGoogleHandle = async () => {

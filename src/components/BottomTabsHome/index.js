@@ -11,7 +11,9 @@ const BottomTabsHome = ({ navigation }) => {
       >
         <Ionicons name="swap-horizontal" size={35} color={THEME.colors.red} />
       </TouchableWithoutFeedback>
-      <Ionicons name="gift-outline" size={35} color={THEME.colors.red} />
+      <TouchableWithoutFeedback onPress={() => navigation.jumpTo("Gifts")}>
+        <Ionicons name="gift-outline" size={35} color={THEME.colors.red} />
+      </TouchableWithoutFeedback>
     </View>
   );
 };

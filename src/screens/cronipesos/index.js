@@ -9,6 +9,7 @@ import Separator from "../../components/Separator";
 import { useQuery } from "react-query";
 import { getCouponsAvailable } from "../../services";
 import Loader from "../../components/Loader";
+import { useRefreshOnFocus } from "../../hooks/useRefreshOnFocus";
 const Cronipesos = ({ route, navigation }) => {
   const { id, photoUrl, name, area } = route.params;
   const {
@@ -18,7 +19,6 @@ const Cronipesos = ({ route, navigation }) => {
   } = useQuery([`coupons-${id}`, id], () => getCouponsAvailable(id));
 
   const onOpenModalHandle = (data) => {
-    console.log("dataToparams", data);
     navigation.navigate({
       name: "Modal",
       params: {
@@ -30,10 +30,15 @@ const Cronipesos = ({ route, navigation }) => {
           additionalInfo: data.additionalInfo,
           discount: data.discount,
           type: "classic",
+          link: data.posData.appLink,
+          userCouponData: data.userCouponData ? data.userCouponData.code : null,
+          posId: data.id,
         },
       },
     });
   };
+
+  useRefreshOnFocus(refetchCouponsAvailable);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

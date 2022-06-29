@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Dimensions, ActivityIndicator } from "react-native";
+import React from "react";
+import { View, Text, ActivityIndicator } from "react-native";
 import styles from "./styles";
 import Ionicon from "react-native-vector-icons/Ionicons";
 import THEME from "../../utils/constants/theme";
 import useGetUserRole from "../../hooks/useGetUserRole";
 import { useTheme } from "@react-navigation/native";
-import { getAccountData, getDataUser } from "../../services";
+import {
+  getAccountData,
+  getDataUser,
+  updateNotifications,
+} from "../../services";
 import useAppContext from "../../context/useAppContext";
 import { useQuery } from "react-query";
 import { useRefreshOnFocus } from "../../hooks/useRefreshOnFocus";
@@ -25,15 +29,20 @@ const HeaderHome = ({ title, navigation, route }) => {
     () => getAccountData(dataUser),
     { enabled: !!dataUser }
   );
+
+  const onNotificationsHandle = async () => {
+    navigation.navigate("Notificaciones");
+    await updateNotifications();
+  };
+
   useRefreshOnFocus(refetchDataUser);
   useRefreshOnFocus(refetchDataAccount);
-
   return (
     <View
       style={{
         backgroundColor: colors.card,
         padding: 12,
-        paddingTop: insets.top + 5,
+        paddingTop: insets.top + 12,
       }}
     >
       <View style={styles.containerAppHeader}>
@@ -50,10 +59,14 @@ const HeaderHome = ({ title, navigation, route }) => {
         </View>
         <View>
           <Ionicon
-            name="notifications-outline"
+            name={
+              !dataUser?.notificationReadingDate
+                ? "notifications"
+                : "notifications-outline"
+            }
             size={30}
             color={THEME.colors.white}
-            onPress={() => navigation.navigate("Notificaciones")}
+            onPress={onNotificationsHandle}
           />
         </View>
       </View>
@@ -61,7 +74,7 @@ const HeaderHome = ({ title, navigation, route }) => {
         {dataAccount && dataAccount.length > 0 && (
           <>
             <Text style={[styles.textCronipesos, styles.balance]}>
-              C$ 
+              C$
               <Text style={{ fontSize: 40, fontWeight: "700" }}>
                 {dataAccount &&
                   dataAccount.length > 0 &&

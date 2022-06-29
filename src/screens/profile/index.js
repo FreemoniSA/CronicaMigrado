@@ -26,11 +26,7 @@ const Profile = () => {
     Clipboard.setString(dataUser.freemoniCode);
   };
 
-  // const fetchedCopiedCode = async () => {
-  //   const code = await Clipboard.getStringAsync();
-  //   console.log(code);
-  //   setCopyCode(code);
-  // };
+  
   return (
     <View style={styles.container}>
       <View style={styles.containerUserData}>
@@ -51,7 +47,7 @@ const Profile = () => {
           <Button text="Copiar" color="red" onPress={copyToClipboard} />
         </View>
       </View>
-      {role === "classic" && (
+      {/* {role === "classic" && (
         <View style={styles.containerBlack}>
           <Button text="Obtené tu membresía" color="black" />
           <Ionicon
@@ -72,7 +68,7 @@ const Profile = () => {
             Black.
           </Text>
         </View>
-      )}
+      )} */}
     </View>
   );
 };

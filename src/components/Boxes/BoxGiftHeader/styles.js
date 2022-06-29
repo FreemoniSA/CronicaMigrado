@@ -8,11 +8,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   store: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily:THEME.fontFamily.mainBold
   },
   storeType: {
-    fontSize: THEME.fontSize.description,
+    fontSize: THEME.fontSize.subheading,
     color: THEME.colors.darkgray,
     fontFamily:THEME.fontFamily.mainRegular
   },

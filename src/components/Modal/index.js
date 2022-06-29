@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ScrollView, View, Text, Image } from "react-native";
+import { ScrollView, View, Text, Image, ActivityIndicator } from "react-native";
 import { regalos } from "../mockdata/gifts";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import THEME from "../../utils/constants/theme";
@@ -12,14 +12,63 @@ import FooterFixed from "../FooterFixed";
 import Button from "../Button";
 import useGetUserRole from "../../hooks/useGetUserRole";
 import logoBlack from "../../../assets/club-cronica-black.png";
+import * as Linking from "expo-linking";
+import * as Clipboard from "expo-clipboard";
+import { getDataUser, getGenerateCodeCoupon } from "../../services";
+import PopUp from "../PopUp";
+import SetDni from "../SetDni";
+import AlertYpf from "../Alert/AlertYpf";
+import AlertInsufficientFounds from "../Alert/AlertInsufficientFounds";
+import { useQuery } from "react-query";
+import useAppContext from "../../context/useAppContext";
+
 const Modal = ({ route, navigation }) => {
+  const { user } = useAppContext();
   const role = useGetUserRole();
   const { id, data } = route.params;
-  console.log("route", route.params)
-  // useEffect(() => {
-  //   const findData = regalos.find((item) => item.id === id);
-  //   setData(findData);
-  // }, []);
+  const [couponData, setCouponData] = useState(data.userCouponData);
+  const [isLoading, setIsLoading] = useState(false);
+  const [popUpDni, setPopUpDni] = useState(false);
+  const [alertYpf, setAlertYpf] = useState(false);
+  const [alertFounds, setAlertFounds] = useState(false);
+  const { data: dataUser, refetch: refetchDataUser } = useQuery(
+    ["dataUser", user],
+    () => getDataUser(user),
+    { enabled: !!user }
+  );
+
+  const handleLink = () => {
+    Linking.openURL(data.link);
+  };
+
+  const copyToClipboard = () => {
+    Clipboard.setString(data.userCouponData);
+  };
+  const generateCodeHandle = async () => {
+    if (!dataUser) return;
+    if (data.name === "YPF" && !dataUser?.dni) {
+      setPopUpDni(true);
+      return;
+    }
+    if (data.name === "YPF") {
+      setAlertYpf(true);
+    }
+
+    try {
+      setIsLoading(true);
+      const generatedCode = await getGenerateCodeCoupon(data.posId);
+      if (generatedCode?.error === "insufficient-founds") {
+        setAlertFounds(true);
+        return;
+      }
+      setCouponData(generatedCode.code);
+    } catch (error) {
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView
@@ -36,7 +85,7 @@ const Modal = ({ route, navigation }) => {
         </View>
         {data && (
           <Card
-            srcImg={{ uri:data.img }}
+            srcImg={{ uri: data.img }}
             size="small"
             horizontal
             shadow
@@ -61,22 +110,52 @@ const Modal = ({ route, navigation }) => {
           </Framer>
         )}
       </ScrollView>
+      <PopUp visible={alertFounds}>
+        <AlertInsufficientFounds setAlertFounds={setAlertFounds} />
+      </PopUp>
+      <PopUp visible={popUpDni}>
+        <SetDni setPopUpDni={setPopUpDni} />
+      </PopUp>
+      <PopUp visible={alertYpf}>
+        <AlertYpf setAlertYpf={setAlertYpf} />
+      </PopUp>
       {data && (
         <FooterFixed>
-          {data.type === "black" && role === "classic" ? null : (
+          {!isLoading && couponData && (
+            <View style={styles.codeContainer}>
+              <Text style={styles.codeText}>{couponData}</Text>
+              <Button text="Copiar" color="red" onPress={copyToClipboard} />
+            </View>
+          )}
+          {isLoading && (
+            <ActivityIndicator size="large" color={THEME.colors.red} />
+          )}
+          {!isLoading && !couponData && (
+            <Button
+              text="USAR MIS CRONIPESOS"
+              color="green"
+              margin
+              onPress={generateCodeHandle}
+            />
+          )}
+          {/* {!data.userCouponData &&
+          data.type === "black" &&
+          role === "classic" ? null : (
             <Button
               text="USAR MIS CRONIPESOS"
               color={role === "classic" ? "green" : "black"}
               margin
             />
-          )}
+          )} */}
+          {/* ------------------------------- */}
           {data.type === "black" && role === "classic" ? null : (
             <Button
               color="blue"
               margin
+              onPress={handleLink}
               text={
                 <Text>
-                  {`IR A ${data.store}`}{" "}
+                  {`IR A ${data.name.toUpperCase()}`}{" "}
                   <Ionicons
                     name="open-outline"
                     size={18}

@@ -7,15 +7,16 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   title: {
-    fontSize: THEME.fontSize.title,
+    fontSize: THEME.fontSize.heading,
     color: THEME.colors.black,
-    fontWeight: "600",
+    fontFamily:THEME.fontFamily.mainRegular,
     paddingVertical:1
   },
   desc: {
-    fontSize: THEME.fontSize.description,
+    fontSize: 12,
     color: THEME.colors.black,
-    paddingVertical:1
+    paddingVertical:1,
+    fontFamily:THEME.fontFamily.mainRegular,
   },
   date: {
     fontSize: THEME.fontSize.description,

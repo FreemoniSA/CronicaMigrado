@@ -3,6 +3,7 @@ import THEME from "../../utils/constants/theme";
 
 const styles = StyleSheet.create({
   container: {
+    position: "relative",
     flex: 1,
     alignItems: "center",
     backgroundColor: THEME.colors.white,

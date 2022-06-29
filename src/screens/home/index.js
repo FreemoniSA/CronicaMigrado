@@ -46,20 +46,22 @@ const Home = ({ navigation }) => {
     () => getAccountData(dataUser),
     { enabled: !!dataUser }
   );
-  const { data: transactionsByUser, isLoading: isLoadingTransactions } =
-    useQuery(
-      ["transactionsByUser", dataUser, dataAccount],
-      () => getTransactionsByUser(dataUser, dataAccount),
-      { enabled: !!dataAccount }
-    );
+  const {
+    data: transactionsByUser,
+    isLoading: isLoadingTransactions,
+    refetch: refetchDataTransactions,
+  } = useQuery(
+    ["transactionsByUser"],
+    () => getTransactionsByUser(dataUser, dataAccount),
+    { enabled: !!dataAccount }
+  );
   const {
     data: salePoints,
     refetch: refetchSalePoints,
     isLoading: isLoadingSalePoints,
   } = useQuery(["salePoints"], getSalePoints);
-
   useRefreshOnFocus(refetchSalePoints);
-
+  useRefreshOnFocus(refetchDataTransactions);
   const onShareApp = () => {
     Share.share({
       message:
@@ -157,17 +159,24 @@ const Home = ({ navigation }) => {
               footer="Ver más transacciones"
               onFooterHandle={() => navigation.jumpTo("Transactions")}
             >
-              {transactionsByUser.map((item, idx) => (
-                <Card
-                  srcImg={{ uri: item.fmTypeData.shopPhoto }}
-                  size="small"
-                  horizontal
-                  width="fullWidth"
-                  key={idx}
-                >
-                  <BoxTransaction data={item} />
-                </Card>
-              ))}
+              {transactionsByUser.map((item, idx) => {
+                if (idx > 2) return null;
+                return (
+                  <Card
+                    srcImg={{
+                      uri:
+                        item?.intermediary?.photoUrl ||
+                        item.fmTypeData.shopPhoto,
+                    }}
+                    size="small"
+                    horizontal
+                    width="fullWidth"
+                    key={idx}
+                  >
+                    <BoxTransaction data={item} navigation={navigation} />
+                  </Card>
+                );
+              })}
             </Framer>
           )}
         </View>

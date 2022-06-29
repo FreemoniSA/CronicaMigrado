@@ -20,6 +20,16 @@ const styles = StyleSheet.create({
     color: THEME.colors.black,
     fontFamily: THEME.fontFamily.mainBold,
   },
+  codeContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 10,
+  },
+  codeText: {
+    fontFamily: THEME.fontFamily.mainBold,
+    fontSize:THEME.fontSize.heading
+  },
 });
 
 export default styles;

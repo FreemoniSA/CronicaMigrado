@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { View, FlatList } from "react-native";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
+import { queryClient } from "../../../App";
 import BoxNotifications from "../../components/Boxes/BoxNotifications";
 import Card from "../../components/Card";
 import Loader from "../../components/Loader";
-import { notificaciones } from "../../components/mockdata/notifications";
 import Separator from "../../components/Separator";
+import useAppContext from "../../context/useAppContext";
 import {
+  getMoreNotifications,
   getNotifications,
-  getSalePoints,
-  getTransactionsByUser,
-  traerUsuarios,
 } from "../../services";
 import styles from "./styles";
 const Notifications = () => {
@@ -18,6 +17,25 @@ const Notifications = () => {
     ["notifications"],
     getNotifications
   );
+  
+
+  const { mutate: addNotifications, isLoading: isLoadingMutation } =
+    useMutation(
+      async () => {
+        if (notifications?.length === 0) return [];
+        let lastId = notifications[notifications.length - 1].id;
+        const newNotifications = await getMoreNotifications(lastId);
+        return newNotifications;
+      },
+      {
+        onSuccess: async (lastNotifications) => {
+          queryClient.setQueryData("notifications", (old) => [
+            ...old,
+            ...lastNotifications,
+          ]);
+        },
+      }
+    );
 
   return (
     <View style={styles.container}>
@@ -26,6 +44,7 @@ const Notifications = () => {
           data={notifications}
           keyExtractor={(item, idx) => idx.toString()}
           showsVerticalScrollIndicator={false}
+          onEndReached={addNotifications}
           ItemSeparatorComponent={() => <Separator />}
           renderItem={({ item }) => (
             <Card srcImg={{ uri: item.photoUrl }} size="small" horizontal>
@@ -35,6 +54,7 @@ const Notifications = () => {
         />
       )}
       {isLoading && <Loader />}
+      {isLoadingMutation && <Loader />}
     </View>
   );
 };

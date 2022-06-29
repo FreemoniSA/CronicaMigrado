@@ -9,7 +9,7 @@ const HeaderDefault = ({ title, navigation }) => {
   const insets = useSafeAreaInsets();
   const { colors } = useTheme();
   return (
-    <View style={{ backgroundColor:colors.card, padding:12, paddingTop: insets.top + 5 }}>
+    <View style={{ backgroundColor:colors.card, padding:12, paddingTop: insets.top + 12 }}>
       <View style={styles.containerAppHeader}>
         <View style={styles.containerWelcomeHeader}>
           <Ionicon

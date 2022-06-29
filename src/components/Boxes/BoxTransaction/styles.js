@@ -6,15 +6,15 @@ const styles = StyleSheet.create({
     
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 10,
+    paddingVertical: 7,
     paddingHorizontal: 10,
   },
   desc: {
-    fontSize: 14,
+    fontSize: 16,
     fontFamily:THEME.fontFamily.mainRegular
   },
   date: {
-    fontSize: THEME.fontSize.description,
+    fontSize: 13,
     color: THEME.colors.darkgray,
     fontFamily:THEME.fontFamily.mainRegular,
     paddingTop:2
