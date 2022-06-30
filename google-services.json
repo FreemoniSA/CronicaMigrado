@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "602566447454-ajki54pp5aj20gjb9heuhojq0d0h9hf5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.freemoni.clubcronicaapp",
+            "certificate_hash": "f104d6b7813af17555ce708c2531e27936f5e205"
+          }
+        },
+        {
           "client_id": "602566447454-mqqndof5dk06h7s6688ahebpfi1ipqhf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

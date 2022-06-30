@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Cronicamigracion",
-    "slug": "Cronicamigracion",
+    "name": "Club Cronica",
+    "slug": "ClubCronica",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -47,7 +47,8 @@
       }
     ], 
       [
-        "expo-notifications",{
+        "expo-notifications",
+        {
           "icon":"./assets/icon.png",
           "color":"#d71920"
         }

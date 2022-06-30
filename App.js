@@ -20,7 +20,7 @@ import registerNNPushToken from 'native-notify';
 export const queryClient = new QueryClient();
 
 export default function App() {
-  //registerNNPushToken(3111, '8JYg5hGeDI5LcmdCXv9VSy');
+  registerNNPushToken(3118, 'QoQFBywAoITHADclVBFc8B');
   let [fontsLoaded] = useFonts({
     PTSans_400Regular,
     PTSans_400Regular_Italic,
