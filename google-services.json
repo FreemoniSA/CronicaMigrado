@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "602566447454-cseo40kipje9ib52c8p4hhptu626l4c8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.freemoni.clubcronicaapp",
+            "certificate_hash": "de67a6a18d40534c65613515ee9fc1cb1f06e3dc"
+          }
+        },
+        {
           "client_id": "602566447454-mqqndof5dk06h7s6688ahebpfi1ipqhf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
