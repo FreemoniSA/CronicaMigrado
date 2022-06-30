@@ -2,4 +2,7 @@
   <string name="app_name">Cronicamigracion</string>
   <string name="expo_splash_screen_resize_mode" translatable="false">contain</string>
   <string name="expo_splash_screen_status_bar_translucent" translatable="false">false</string>
+  <string name="facebook_app_id">331400501083799</string>
+  <string name="facebook_client_token">e38a339148c8942c60045c742bb6169a</string>
+  <string name="fb_login_protocol_scheme">fb331400501083799</string>
 </resources>

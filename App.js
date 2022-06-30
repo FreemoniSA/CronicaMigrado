@@ -16,9 +16,11 @@ import {
   Montserrat_500Medium,
   Montserrat_700Bold,
 } from "@expo-google-fonts/montserrat";
+import registerNNPushToken from 'native-notify';
 export const queryClient = new QueryClient();
 
 export default function App() {
+  //registerNNPushToken(3111, '8JYg5hGeDI5LcmdCXv9VSy');
   let [fontsLoaded] = useFonts({
     PTSans_400Regular,
     PTSans_400Regular_Italic,

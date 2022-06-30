@@ -8,6 +8,7 @@ import {
   Share,
   SafeAreaView,
   StatusBar,
+  TouchableOpacity,
 } from "react-native";
 import Card from "../../components/Card";
 import Framer from "../../components/Framer";
@@ -34,7 +35,7 @@ import TransactionsSkeleton from "../../components/Skeletons/TransactionsSkeleto
 import FooterFixed from "../../components/FooterFixed";
 import BottomTabsHome from "../../components/BottomTabsHome";
 const Home = ({ navigation }) => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const { user } = useAppContext();
   const { data: dataUser, refetch: refetchDataUser } = useQuery(
     ["dataUser", user],
@@ -62,6 +63,7 @@ const Home = ({ navigation }) => {
   } = useQuery(["salePoints"], getSalePoints);
   useRefreshOnFocus(refetchSalePoints);
   useRefreshOnFocus(refetchDataTransactions);
+
   const onShareApp = () => {
     Share.share({
       message:
@@ -70,6 +72,7 @@ const Home = ({ navigation }) => {
       .then((result) => console.log(result))
       .catch((error) => console.log(error));
   };
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView showsVerticalScrollIndicator={false}>

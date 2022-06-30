@@ -12,8 +12,11 @@ import { useForm, Controller } from "react-hook-form";
 import { EMAIL_REGEX } from "../../utils/constants/regex";
 import BASE_URL from "../../utils/constants/baseUrl";
 import { createUserFreemoniDb } from "../../services";
+import PopUp from "../PopUp";
+import AlertMaintenance from "../Alert/AlertMaintenance";
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [alertMaintenance, setAlertMaintenance] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
@@ -43,9 +46,8 @@ export default function RegisterForm() {
     }
   };
 
-
   return (
-    <View style={styles.form}>
+    <View style={[styles.form, { marginBottom: 40 }]}>
       <CustomInput
         name="name"
         placeholder="Nombre"
@@ -111,9 +113,11 @@ export default function RegisterForm() {
         title="Registrarse"
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
-        onPress={handleSubmit(onSubmitSignupHandle)}
+        onPress={() => setAlertMaintenance(true)}
       />
-
+      <PopUp visible={alertMaintenance}>
+        <AlertMaintenance setAlertMaintenance={setAlertMaintenance} />
+      </PopUp>
       <View style={styles.accountExistContainer}>
         <Text style={styles.accountExistText}>
           ¿Ya tienes cuenta?{" "}

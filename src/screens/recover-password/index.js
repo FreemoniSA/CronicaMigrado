@@ -6,7 +6,10 @@ import styles from "./styles";
 // import { validateEmail } from "../../utils/helpers";
 import logo from "../../../assets/club-cronica-circle.png";
 import Loading from "../../components/Loading";
+import PopUp from "../../components/PopUp";
+import AlertMaintenance from "../../components/Alert/AlertMaintenance";
 export default function RecoverPassword({ navigation }) {
+  const [alertMaintenance, setAlertMaintenance] = useState(false);
   const [email, setEmail] = useState("");
   const [errorEmail, setErrorEmail] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -48,8 +51,8 @@ export default function RecoverPassword({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-          <Image source={logo} style={styles.image} />
-        </View>
+        <Image source={logo} style={styles.image} />
+      </View>
       <View style={styles.inputComponent}>
         <View style={styles.inputContainer}>
           <TextInput
@@ -68,11 +71,23 @@ export default function RecoverPassword({ navigation }) {
         title="Recuperar Contraseña"
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
-        onPress={()=>console.log("recover")}
+        onPress={() => setAlertMaintenance(true)}
       />
+      <PopUp visible={alertMaintenance}>
+        <AlertMaintenance setAlertMaintenance={setAlertMaintenance} />
+      </PopUp>
+      <View style={styles.accountExistContainer}>
+        <Text style={styles.accountExistText}>
+          ¿Ya tienes cuenta?{" "}
+          <Text
+            onPress={() => navigation.navigate("Login")}
+            style={styles.accountExistTextHighlighted}
+          >
+            Iniciar sesión
+          </Text>
+        </Text>
+      </View>
       <Loading isVisible={loading} text="Recuperando contraseña..." />
     </View>
   );
 }
-
-

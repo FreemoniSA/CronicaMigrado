@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { Button, Icon } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./styles";
@@ -9,12 +9,20 @@ import auth from "@react-native-firebase/auth";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import CustomInput from "../CustomInput";
 import { EMAIL_REGEX } from "../../utils/constants/regex";
-import { createUserSocialAuthFreemoniDb, getAccountData, getDataUser } from "../../services";
+import {
+  createUserSocialAuthFreemoniDb,
+  getAccountData,
+  getDataUser,
+} from "../../services";
 import useAppContext from "../../context/useAppContext";
+import { LoginManager, AccessToken } from "react-native-fbsdk-next";
+import AlertMaintenance from "../Alert/AlertMaintenance";
+import PopUp from "../PopUp";
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [alertMaintenance, setAlertMaintenance] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { setRegister } = useAppContext()
+  const { setRegister } = useAppContext();
   const {
     control,
     handleSubmit,
@@ -23,21 +31,62 @@ export default function LoginForm() {
   GoogleSignin.configure({
     webClientId:
       "602566447454-poagc2ico1080hn8kio5hikpj6dn9dnb.apps.googleusercontent.com",
-      offlineAccess:false,
+    offlineAccess: false,
   });
 
   const signInWithGoogleHandle = async () => {
     try {
+      setLoading(true);
       setRegister(false);
       const { idToken } = await GoogleSignin.signIn();
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
       const user_sign_in = await auth().signInWithCredential(googleCredential);
-      if(user_sign_in.additionalUserInfo.isNewUser){
-        const dataUser = await createUserSocialAuthFreemoniDb(user_sign_in.user)
+      if (user_sign_in.additionalUserInfo.isNewUser) {
+        const dataUser = await createUserSocialAuthFreemoniDb(
+          user_sign_in.user
+        );
       }
-      setRegister(true)
+      setLoading(false);
+      setRegister(true);
     } catch (error) {
-      console.log(error);
+      setLoading(false);
+      throw error;
+    }
+  };
+
+  const signInWithFacebookHandle = async () => {
+    try {
+      setLoading(true);
+      setRegister(false);
+      const result = await LoginManager.logInWithPermissions([
+        "public_profile",
+        "email",
+      ]);
+
+      if (result.isCancelled) {
+        throw "User cancelled the login process";
+      }
+      const data = await AccessToken.getCurrentAccessToken();
+
+      if (!data) {
+        throw "Something went wrong obtaining access token";
+      }
+      const facebookCredential = auth.FacebookAuthProvider.credential(
+        data.accessToken
+      );
+      const user_sign_in = await auth().signInWithCredential(
+        facebookCredential
+      );
+      if (user_sign_in.additionalUserInfo.isNewUser) {
+        const dataUser = await createUserSocialAuthFreemoniDb(
+          user_sign_in.user
+        );
+      }
+      setLoading(false);
+      setRegister(true);
+    } catch (error) {
+      setLoading(false);
+      throw error;
     }
   };
 
@@ -95,8 +144,11 @@ export default function LoginForm() {
         title="Iniciar Sesión"
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
-        onPress={handleSubmit(onSubmitLogin)}
+        onPress={() => setAlertMaintenance(true)}
       />
+      <PopUp visible={alertMaintenance}>
+        <AlertMaintenance setAlertMaintenance={setAlertMaintenance} />
+      </PopUp>
       <Button
         title="Iniciar Sesión con Google"
         containerStyle={styles.btnContainer}
@@ -105,6 +157,21 @@ export default function LoginForm() {
         icon={
           <Icon
             name="google"
+            type="material-community"
+            marginRight={10}
+            size={20}
+            color="#fff"
+          />
+        }
+      />
+      <Button
+        title="Iniciar Sesión con Facebook"
+        containerStyle={styles.btnContainer}
+        buttonStyle={styles.btnFb}
+        onPress={signInWithFacebookHandle}
+        icon={
+          <Icon
+            name="facebook"
             type="material-community"
             marginRight={10}
             size={20}

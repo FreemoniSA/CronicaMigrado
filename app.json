@@ -8,7 +8,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#d61920"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -24,8 +24,8 @@
     "android": {
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#d61920"
       },
       "package": "com.freemoni.clubcronicaapp",
       "versionCode": 1
@@ -35,7 +35,23 @@
     },
     "plugins": [
       "@react-native-firebase/app",
-      "@react-native-google-signin/google-signin"
+      "@react-native-google-signin/google-signin",
+      ["react-native-fbsdk-next",
+        {
+        "appID": "331400501083799",
+        "clientToken": "e38a339148c8942c60045c742bb6169a",
+        "displayName": "Login Comunidad CRONICA",
+        "advertiserIDCollectionEnabled": false,
+        "autoLogAppEventsEnabled": false,
+        "isAutoInitEnabled": true
+      }
+    ], 
+      [
+        "expo-notifications",{
+          "icon":"./assets/icon.png",
+          "color":"#d71920"
+        }
+      ]
     ]
   }
 }

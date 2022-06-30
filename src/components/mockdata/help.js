@@ -9,9 +9,6 @@ export const helppages = [
     redirect: (navigation) => navigation.navigate("Preguntas frecuentes"),
   },
   {
-    title: "Club Black",
-  },
-  {
     title: "Términos y condiciones",
     redirect: () =>
       OpenAnything.Pdf(

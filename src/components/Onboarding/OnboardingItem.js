@@ -30,5 +30,6 @@ const styles = StyleSheet.create({
   image: {
     flex: 0.9,
     justifyContent: "center",
+    resizeMode:"stretch"
   },
 });

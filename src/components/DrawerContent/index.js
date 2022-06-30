@@ -5,6 +5,7 @@ import {
   Image,
   TouchableWithoutFeedback,
   Share,
+  Platform,
 } from "react-native";
 import cronicaDrawer from "../../../assets/club-cronica.png";
 import cronicaDrawerBlack from "../../../assets/club-cronica-black.png";
@@ -26,7 +27,9 @@ const CustomDrawerContent = (props) => {
   const onShareApp = () => {
     Share.share({
       message:
-        "https://play.google.com/store/apps/details?id=com.freemoni.clubcronicaapp&hl=es_AR&gl=US",
+        Platform.OS === "ios"
+          ? "https://apps.apple.com/ar/app/club-cr%C3%B3nica/id1534021123"
+          : "https://play.google.com/store/apps/details?id=com.freemoni.clubcronicaapp&hl=es_AR&gl=US",
     })
       .then((result) => console.log(result))
       .catch((error) => console.log(error));

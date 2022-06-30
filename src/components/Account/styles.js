@@ -9,20 +9,20 @@ const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: THEME.colors.creamwhite,
   },
-  inputComponent:{
-      width:"100%",
-      alignItems: "center",
-      marginVertical: 5,
+  inputComponent: {
+    width: "100%",
+    alignItems: "center",
+    marginVertical: 5,
   },
   inputContainer: {
     width: "90%",
     backgroundColor: THEME.colors.white,
     borderRadius: 50,
     paddingHorizontal: 20,
-    justifyContent:"space-between",
+    justifyContent: "space-between",
     width: "90%",
-    alignItems:"center",
-    flexDirection:"row",
+    alignItems: "center",
+    flexDirection: "row",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -34,24 +34,23 @@ const styles = StyleSheet.create({
   },
   textInput: {
     height: 60,
-    width:"80%",
+    width: "80%",
     fontSize: THEME.fontSize.subheading,
   },
-  errorContainer:{
-    paddingTop:3
+  errorContainer: {
+    paddingTop: 3,
   },
-  textError:{
-    color:THEME.colors.red
+  textError: {
+    color: THEME.colors.red,
   },
   btnContainer: {
     marginTop: 20,
     width: "90%",
     alignSelf: "center",
-    borderRadius:50,
+    borderRadius: 50,
   },
   btn: {
     backgroundColor: THEME.colors.black,
-    
   },
   icon: {
     color: "#c1c1c1",
@@ -59,18 +58,21 @@ const styles = StyleSheet.create({
   btnGoogle: {
     backgroundColor: "#EA4335",
   },
-  accountExistContainer:{
-    width:"90%",
-    alignSelf:"center",
-    marginTop:15
+  btnFb: {
+    backgroundColor: "#385599",
   },
-  accountExistText:{
-    textAlign:"center"
+  accountExistContainer: {
+    width: "90%",
+    alignSelf: "center",
+    marginTop: 15,
   },
-  accountExistTextHighlighted:{
+  accountExistText: {
+    textAlign: "center",
+  },
+  accountExistTextHighlighted: {
     color: THEME.colors.red,
     textAlign: "center",
     fontWeight: "700",
-  }
+  },
 });
 export default styles;

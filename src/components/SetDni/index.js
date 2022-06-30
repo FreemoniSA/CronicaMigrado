@@ -1,12 +1,20 @@
 import { View, Text, TouchableWithoutFeedback, TextInput } from "react-native";
 import React, { useState } from "react";
 import styles from "./styles";
-import { setDni } from "../../services";
+import { getDataUser, setDni } from "../../services";
 import REGEX_DNI from "../../utils/constants/regexDni";
+import { useQuery } from "react-query";
+import useAppContext from "../../context/useAppContext";
 const SetDni = ({ setPopUpDni }) => {
+  const { user } = useAppContext();
   const [message, setMessage] = useState(null);
   const [number, setNumber] = useState("");
   const [error, setError] = useState(null);
+  const { data: dataUser, refetch: refetchDataUser } = useQuery(
+    ["dataUser", user],
+    () => getDataUser(user),
+    { enabled: !!user }
+  );
   const onChangeNumber = (text) => {
     setNumber(text);
   };
@@ -19,6 +27,7 @@ const SetDni = ({ setPopUpDni }) => {
     setError(null);
     try {
       await setDni(number);
+      await refetchDataUser();
       setMessage(true);
     } catch (error) {
       throw error;

@@ -29,6 +29,7 @@ const AuthStack = () => {
         component={RecoverPassword}
         options={{
           title: "Recuperar contraseña",
+          headerShown:false
         }}
       />
     </Stack.Navigator>

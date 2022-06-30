@@ -30,6 +30,7 @@ const Modal = ({ route, navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [popUpDni, setPopUpDni] = useState(false);
   const [alertYpf, setAlertYpf] = useState(false);
+  const [textButton, setTextButton] = useState("Copiar");
   const [alertFounds, setAlertFounds] = useState(false);
   const { data: dataUser, refetch: refetchDataUser } = useQuery(
     ["dataUser", user],
@@ -42,8 +43,10 @@ const Modal = ({ route, navigation }) => {
   };
 
   const copyToClipboard = () => {
-    Clipboard.setString(data.userCouponData);
+    setTextButton("¡Copiado!");
+    Clipboard.setString(couponData);
   };
+
   const generateCodeHandle = async () => {
     if (!dataUser) return;
     if (data.name === "YPF" && !dataUser?.dni) {
@@ -124,7 +127,7 @@ const Modal = ({ route, navigation }) => {
           {!isLoading && couponData && (
             <View style={styles.codeContainer}>
               <Text style={styles.codeText}>{couponData}</Text>
-              <Button text="Copiar" color="red" onPress={copyToClipboard} />
+              <Button text={textButton} color="red" onPress={copyToClipboard} />
             </View>
           )}
           {isLoading && (

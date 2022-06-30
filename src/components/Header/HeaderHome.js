@@ -54,7 +54,7 @@ const HeaderHome = ({ title, navigation, route }) => {
             onPress={() => navigation.openDrawer()}
           />
           <Text style={styles.textWelcomeHeader}>
-            Hola, {dataUser?.displayName}
+            Hola, {dataUser?.displayName.split(" ")[0]}
           </Text>
         </View>
         <View>
@@ -62,7 +62,7 @@ const HeaderHome = ({ title, navigation, route }) => {
             name={
               !dataUser?.notificationReadingDate
                 ? "notifications"
-                : "notifications-outline"
+                : "notifications"
             }
             size={30}
             color={THEME.colors.white}

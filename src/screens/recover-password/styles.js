@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     // justifyContent: "center",
-    marginTop: 30,
+    marginTop: 60,
     width: "100%",
     backgroundColor: THEME.colors.creamwhite,
   },

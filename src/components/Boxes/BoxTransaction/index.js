@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TouchableWithoutFeedback } from "react-native";
 import styles from "./styles";
 import TRANSACTIONS_SUBJECTS from "../../../utils/constants/transactionsSubject";
@@ -7,10 +7,13 @@ import moment from "moment";
 import "moment/locale/es";
 
 const BoxTransaction = ({ data, navigation }) => {
+  const [loading, setLoading] = useState(false);
   const couponCreatedHandle = async () => {
     try {
       if (data.subject !== "couponCreated") return;
+      setLoading(true);
       const couponTransaction = await getUserCoupon(data.trxId);
+      setLoading(false);
       navigation.navigate({
         name: "Modal",
         params: {
@@ -31,6 +34,7 @@ const BoxTransaction = ({ data, navigation }) => {
         },
       });
     } catch (error) {
+      setLoading(false);
       throw error;
     }
   };
