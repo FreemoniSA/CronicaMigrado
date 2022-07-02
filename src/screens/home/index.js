@@ -23,7 +23,6 @@ import {
   getDataUser,
   getAccountData,
   getCouponsAvailable,
-  traerUsuarios,
 } from "../../services";
 import { useQuery } from "react-query";
 import { useRefreshOnFocus } from "../../hooks/useRefreshOnFocus";

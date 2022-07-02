@@ -16,11 +16,10 @@ import {
   Montserrat_500Medium,
   Montserrat_700Bold,
 } from "@expo-google-fonts/montserrat";
-import registerNNPushToken from 'native-notify';
+import { Text, View } from "react-native";
 export const queryClient = new QueryClient();
 
 export default function App() {
-  registerNNPushToken(3118, 'QoQFBywAoITHADclVBFc8B');
   let [fontsLoaded] = useFonts({
     PTSans_400Regular,
     PTSans_400Regular_Italic,
@@ -33,13 +32,13 @@ export default function App() {
     return <AppLoading />;
   } else {
     return (
-      <SafeAreaProvider>
-        <AppContextProvider>
-          <QueryClientProvider client={queryClient}>
-            <Navigator />
-          </QueryClientProvider>
-        </AppContextProvider>
-      </SafeAreaProvider>
+       <SafeAreaProvider>
+         <AppContextProvider>
+           <QueryClientProvider client={queryClient}>
+             <Navigator />
+           </QueryClientProvider>
+         </AppContextProvider>
+       </SafeAreaProvider>
     );
   }
 }

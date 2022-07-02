@@ -61,6 +61,7 @@ const Modal = ({ route, navigation }) => {
       setIsLoading(true);
       const generatedCode = await getGenerateCodeCoupon(data.posId);
       if (generatedCode?.error === "insufficient-founds") {
+        console.log(generatedCode);
         setAlertFounds(true);
         return;
       }

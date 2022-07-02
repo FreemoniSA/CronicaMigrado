@@ -33,24 +33,34 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "facebookAdvertiserIDCollectionEnabled": true,
+    "facebookAppId": "331400501083799",
+    "facebookAutoInitEnabled": true,
+    "facebookAutoLogAppEventsEnabled": true,
+    "facebookDisplayName": "Login Comunidad CRONICA",
+    "facebookScheme": "fb331400501083799",
     "plugins": [
       "@react-native-firebase/app",
       "@react-native-google-signin/google-signin",
-      ["react-native-fbsdk-next",
+      [
+        "react-native-fbsdk-next",
         {
-        "appID": "331400501083799",
-        "clientToken": "e38a339148c8942c60045c742bb6169a",
-        "displayName": "Login Comunidad CRONICA",
-        "advertiserIDCollectionEnabled": false,
-        "autoLogAppEventsEnabled": false,
-        "isAutoInitEnabled": true
-      }
-    ], 
+          "appID": "331400501083799",
+          "clientToken": "e38a339148c8942c60045c742bb6169a",
+          "displayName": "Login Comunidad CRONICA"
+        }
+      ],
       [
         "expo-notifications",
         {
-          "icon":"./assets/icon.png",
-          "color":"#d71920"
+          "icon": "./assets/icon.png",
+          "color": "#d71920"
+        }
+      ],
+      [
+        "expo-facebook",
+        {
+          "userTrackingPermission": false
         }
       ]
     ]

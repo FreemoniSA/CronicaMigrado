@@ -15,9 +15,10 @@ import {
   getDataUser,
 } from "../../services";
 import useAppContext from "../../context/useAppContext";
-import { LoginManager, AccessToken } from "react-native-fbsdk-next";
+//import { LoginManager, AccessToken } from "react-native-fbsdk-next";
 import AlertMaintenance from "../Alert/AlertMaintenance";
 import PopUp from "../PopUp";
+import * as Facebook from "expo-facebook";
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [alertMaintenance, setAlertMaintenance] = useState(false);
@@ -58,29 +59,25 @@ export default function LoginForm() {
     try {
       setLoading(true);
       setRegister(false);
-      const result = await LoginManager.logInWithPermissions([
-        "public_profile",
-        "email",
-      ]);
-
-      if (result.isCancelled) {
-        throw "User cancelled the login process";
-      }
-      const data = await AccessToken.getCurrentAccessToken();
-
-      if (!data) {
-        throw "Something went wrong obtaining access token";
-      }
-      const facebookCredential = auth.FacebookAuthProvider.credential(
-        data.accessToken
-      );
-      const user_sign_in = await auth().signInWithCredential(
-        facebookCredential
-      );
-      if (user_sign_in.additionalUserInfo.isNewUser) {
-        const dataUser = await createUserSocialAuthFreemoniDb(
-          user_sign_in.user
+      await Facebook.initializeAsync({
+        appId: "331400501083799",
+      });
+      const { type, token, expirationDate, permissions, declinedPermissions } =
+        await Facebook.logInWithReadPermissionsAsync({
+          permissions: ["public_profile", "email"],
+        });
+      if (type === "success") {
+        const facebookCredential = auth.FacebookAuthProvider.credential(token);
+        const user_sign_in = await auth().signInWithCredential(
+          facebookCredential
         );
+        if (user_sign_in.additionalUserInfo.isNewUser) {
+          const dataUser = await createUserSocialAuthFreemoniDb(
+            user_sign_in.user
+          );
+        }
+      } else {
+        // type === 'cancel'
       }
       setLoading(false);
       setRegister(true);
@@ -89,6 +86,42 @@ export default function LoginForm() {
       throw error;
     }
   };
+
+  // const signInWithFacebookHandle = async () => {
+  //   try {
+  //     setLoading(true);
+  //     setRegister(false);
+  //     const result = await LoginManager.logInWithPermissions([
+  //       "public_profile",
+  //       "email",
+  //     ]);
+
+  //     if (result.isCancelled) {
+  //       throw "User cancelled the login process";
+  //     }
+  //     const data = await AccessToken.getCurrentAccessToken();
+
+  //     if (!data) {
+  //       throw "Something went wrong obtaining access token";
+  //     }
+  //     const facebookCredential = auth.FacebookAuthProvider.credential(
+  //       data.accessToken
+  //     );
+  //     const user_sign_in = await auth().signInWithCredential(
+  //       facebookCredential
+  //     );
+  //     if (user_sign_in.additionalUserInfo.isNewUser) {
+  //       const dataUser = await createUserSocialAuthFreemoniDb(
+  //         user_sign_in.user
+  //       );
+  //     }
+  //     setLoading(false);
+  //     setRegister(true);
+  //   } catch (error) {
+  //     setLoading(false);
+  //     throw error;
+  //   }
+  // };
 
   const onSubmitLogin = (data) => {
     auth()

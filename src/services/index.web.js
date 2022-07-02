@@ -2,17 +2,7 @@
 import { auth } from "../../Firebase";
 import BASE_URL, { CRONICA_ID } from "../utils/constants/baseUrl";
 import { getIdToken } from "firebase/auth";
-export const traerUsuarios = async () => {
-  try {
-    const token = await getIdToken(auth.currentUser);
-    const res = await fetch(`https://jsonplaceholder.typicode.com/users`);
-    const data = await res.json();
-    console.log("se ejecuta refetch", data);
-    return data;
-  } catch (error) {
-    throw error;
-  }
-};
+
 
 export const createUserFreemoniDb = async (dataUser) => {
   try {

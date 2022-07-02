@@ -1,15 +1,7 @@
 import auth from "@react-native-firebase/auth";
 import BASE_URL, { CRONICA_ID } from "../utils/constants/baseUrl";
 
-export const traerUsuarios = async () => {
-  try {
-    const res = await fetch(`https://jsonplaceholder.typicode.com/users`);
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    throw error;
-  }
-};
+
 export const createUserFreemoniDb = async (dataUser) => {
   try {
     const token = await auth().currentUser.getIdToken();
