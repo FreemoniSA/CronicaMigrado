@@ -1,5 +1,5 @@
 # Initial APP Structure - Club Crónica
-![image](https://github.com/FreemoniSA/CronicaMigrado/blob/DEVELOP/screenshots/croni-black.png)
+![image](https://github.com/FreemoniSA/CronicaMigrado/blob/DEVELOP/screenshots/croni-black.jpg)
 ## New banner 
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/DEVELOP/screenshots/banner1.png)
 ![image](https://github.com/FreemoniSA/CronicaMigrado/blob/DEVELOP/screenshots/banner2.png)
