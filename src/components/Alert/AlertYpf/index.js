@@ -8,7 +8,7 @@ const AlertYpf = ({ setAlertYpf }) => {
       <Text style={styles.desc}>
         Si es la primera vez que usás Cronipesos para YPF, y lo solicitaste
         antes del viernes a las 11:00, los podrás usar en tu carga del sábado
-        siquiente. Si lo hiciste después de esa hora, los podrás usar a partir
+        siguiente. Si lo hiciste después de esa hora, los podrás usar a partir
         del sábado posterior. Si no es la primera vez, los podés usar desde
         ahora mismo; siempre pagando desde la App de YPF.
       </Text>

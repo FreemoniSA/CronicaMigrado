@@ -72,7 +72,7 @@ const CustomDrawerContent = (props) => {
             <Image source={freemoniLogo} />
           </View>
           <View style={styles.footerItemContainer}>
-            <Text style={styles.footerItem}>Version 1.2.9</Text>
+            <Text style={styles.footerItem}>Version 2.0.12</Text>
           </View>
           <View style={styles.footerItemContainer}>
             <Button

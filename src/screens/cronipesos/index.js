@@ -18,7 +18,9 @@ const Cronipesos = ({ route, navigation }) => {
     isLoading,
   } = useQuery([`coupons-${id}`, id], () => getCouponsAvailable(id));
 
+
   const onOpenModalHandle = (data) => {
+    //console.log("data opne modal", data)
     navigation.navigate({
       name: "Modal",
       params: {
@@ -94,6 +96,12 @@ const Cronipesos = ({ route, navigation }) => {
           ))}
         </View>
       )}
+      {!isLoading &&
+        !coupons?.length && (
+          <View>
+            <Text style={styles.notCoupons}>No hay cupones disponibles por el momento.</Text>
+          </View>
+        )}
       {isLoading && <Loader />}
     </ScrollView>
   );

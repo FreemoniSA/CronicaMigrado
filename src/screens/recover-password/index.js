@@ -2,51 +2,59 @@ import React, { useState } from "react";
 import { Alert, StyleSheet, View, TextInput, Text, Image } from "react-native";
 import { Button, Icon, Input } from "react-native-elements";
 import styles from "./styles";
-// import { sendEmailResetPassword } from "../../utils/actions";
-// import { validateEmail } from "../../utils/helpers";
 import logo from "../../../assets/club-cronica-circle.png";
 import Loading from "../../components/Loading";
 import PopUp from "../../components/PopUp";
-import AlertMaintenance from "../../components/Alert/AlertMaintenance";
+import AlertForm from "../../components/Alert/AlertForm";
+import { recoverPassword } from "../../services";
+import ERRORS from "../../utils/constants/errors";
+import { EMAIL_REGEX } from "../../utils/constants/regex";
 export default function RecoverPassword({ navigation }) {
-  const [alertMaintenance, setAlertMaintenance] = useState(false);
   const [email, setEmail] = useState("");
   const [errorEmail, setErrorEmail] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [alertForm, setAlertForm] = useState(false);
+  const [title, setTitle] = useState(null);
+  const [description, setDescription] = useState(null);
 
-  // const validateData = () => {
-  //   setErrorEmail(null);
-  //   let valid = true;
-  //   console.log("email", email);
+  const onSubmit = async () => {
+    if (!EMAIL_REGEX.test(email)) {
+      setTitle("Email inválido");
+      setDescription("Por favor introduzca un correo electrónico válido");
+      setAlertForm(true);
+      return;
+    }
+    try {
+      setLoading(true);
+      await recoverPassword(email);
+      setLoading(false);
+      setTitle("Revisa tu bandeja de entrada.");
+      setDescription(
+        "Un correo eléctronico con instrucciones para recuperar la contraseña ha sido enviado."
+      );
+      setAlertForm(true);
+    } catch (error) {
+      setLoading(false);
+      if (error.moreInfo in ERRORS) {
+        setTitle("Ups");
+        setDescription(ERRORS[error.moreInfo]);
+        setAlertForm(true);
+        return;
+      }
+      setTitle("Ups");
+      setDescription(
+        "Ha ocurrido un error en el recupero de contraseña. Vuelve a intentar."
+      );
+      setAlertForm(true);
+      return;
+    }
+  };
 
-  //   if (!validateEmail(email)) {
-  //     setErrorEmail("Debes ingresar un email válido.");
-  //     valid = false;
-  //   }
-
-  //   return valid;
-  // };
-
-  // const onSubmit = async () => {
-  //   if (!validateData()) {
-  //     return;
-  //   }
-
-  //   setLoading(true);
-  //   const result = await sendEmailResetPassword(email);
-  //   setLoading(false);
-
-  //   if (!result.statusResponse) {
-  //     Alert.alert("Error", "Este correo no está relacionado a ningún usuario.");
-  //     return;
-  //   }
-
-  //   Alert.alert(
-  //     "Confirmación",
-  //     "Se le ha enviado un email con las instrucciones para cambiar la contraseña."
-  //   );
-  //   navigation.navigate("Login");
-  // };
+  const closeAlertForm = () => {
+    setTitle(null);
+    setDescription(null);
+    setAlertForm(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -71,10 +79,14 @@ export default function RecoverPassword({ navigation }) {
         title="Recuperar Contraseña"
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
-        onPress={() => setAlertMaintenance(true)}
+        onPress={onSubmit}
       />
-      <PopUp visible={alertMaintenance}>
-        <AlertMaintenance setAlertMaintenance={setAlertMaintenance} />
+      <PopUp visible={alertForm}>
+        <AlertForm
+          closeAlertForm={closeAlertForm}
+          title={title}
+          description={description}
+        />
       </PopUp>
       <View style={styles.accountExistContainer}>
         <Text style={styles.accountExistText}>

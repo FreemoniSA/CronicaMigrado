@@ -16,10 +16,11 @@ import {
   Montserrat_500Medium,
   Montserrat_700Bold,
 } from "@expo-google-fonts/montserrat";
-import { Text, View } from "react-native";
+import { LogBox, Text, View } from "react-native";
 export const queryClient = new QueryClient();
 
 export default function App() {
+  LogBox.ignoreLogs(["timer"]);
   let [fontsLoaded] = useFonts({
     PTSans_400Regular,
     PTSans_400Regular_Italic,

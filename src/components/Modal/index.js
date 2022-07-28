@@ -14,13 +14,18 @@ import useGetUserRole from "../../hooks/useGetUserRole";
 import logoBlack from "../../../assets/club-cronica-black.png";
 import * as Linking from "expo-linking";
 import * as Clipboard from "expo-clipboard";
-import { getDataUser, getGenerateCodeCoupon } from "../../services";
+import {
+  getDataUser,
+  getGenerateCodeCoupon,
+  getRemainCoupons,
+} from "../../services";
 import PopUp from "../PopUp";
 import SetDni from "../SetDni";
 import AlertYpf from "../Alert/AlertYpf";
 import AlertInsufficientFounds from "../Alert/AlertInsufficientFounds";
 import { useQuery } from "react-query";
 import useAppContext from "../../context/useAppContext";
+import AlertNoMoreCoupons from "../Alert/AlertNoMoreCoupons";
 
 const Modal = ({ route, navigation }) => {
   const { user } = useAppContext();
@@ -32,9 +37,16 @@ const Modal = ({ route, navigation }) => {
   const [alertYpf, setAlertYpf] = useState(false);
   const [textButton, setTextButton] = useState("Copiar");
   const [alertFounds, setAlertFounds] = useState(false);
+  const [alertCoupons, setAlertCoupons] = useState(false);
   const { data: dataUser, refetch: refetchDataUser } = useQuery(
     ["dataUser", user],
     () => getDataUser(user),
+    { enabled: !!user }
+  );
+
+  const { data: remainCoupons, refetch: refetchRemainCoupons } = useQuery(
+    ["remainCoupns", data.posId],
+    () => getRemainCoupons(data.posId),
     { enabled: !!user }
   );
 
@@ -60,8 +72,11 @@ const Modal = ({ route, navigation }) => {
     try {
       setIsLoading(true);
       const generatedCode = await getGenerateCodeCoupon(data.posId);
+      if (generatedCode?.error === "no-coupons-available") {
+        setAlertCoupons(true);
+        return;
+      }
       if (generatedCode?.error === "insufficient-founds") {
-        console.log(generatedCode);
         setAlertFounds(true);
         return;
       }
@@ -97,7 +112,7 @@ const Modal = ({ route, navigation }) => {
             width="widthWithMinimunMargin"
             theme={data.type}
           >
-            <BoxGiftHeader data={data} />
+            <BoxGiftHeader data={data} remainCoupons={remainCoupons} />
           </Card>
         )}
         {data && (
@@ -114,6 +129,9 @@ const Modal = ({ route, navigation }) => {
           </Framer>
         )}
       </ScrollView>
+      <PopUp visible={alertCoupons}>
+        <AlertNoMoreCoupons setAlertCoupons={setAlertCoupons} />
+      </PopUp>
       <PopUp visible={alertFounds}>
         <AlertInsufficientFounds setAlertFounds={setAlertFounds} />
       </PopUp>
@@ -125,7 +143,7 @@ const Modal = ({ route, navigation }) => {
       </PopUp>
       {data && (
         <FooterFixed>
-          {!isLoading && couponData && (
+          {!isLoading && couponData && data?.name !== "YPF" && (
             <View style={styles.codeContainer}>
               <Text style={styles.codeText}>{couponData}</Text>
               <Button text={textButton} color="red" onPress={copyToClipboard} />
@@ -142,6 +160,10 @@ const Modal = ({ route, navigation }) => {
               onPress={generateCodeHandle}
             />
           )}
+          {!isLoading && couponData && data?.name === "YPF" && (
+            <Button text="REGALO ACTIVO" color="green" margin />
+          )}
+
           {/* {!data.userCouponData &&
           data.type === "black" &&
           role === "classic" ? null : (

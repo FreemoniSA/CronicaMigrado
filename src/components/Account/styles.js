@@ -74,5 +74,26 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "700",
   },
+  termsAndConditionsContainer: {
+    width: "90%",
+    alignSelf: "center",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  checkContainer: {
+    width: "10%",
+  },
+  check: {
+    width: 20,
+    height: 20,
+    borderColor: "black",
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50,
+  },
+  textTermsContainer: {
+    width: "90%",
+  },
 });
 export default styles;

@@ -1,5 +1,8 @@
-import React, { useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import React, { useState, useRef } from "react";
+import {
+  NavigationContainer,
+  useNavigationContainerRef,
+} from "@react-navigation/native";
 import { StatusBar, SafeAreaView } from "react-native";
 import THEME, {
   APP_THEME_CLASSIC,
@@ -9,8 +12,11 @@ import MyDrawer from "./Drawer";
 import { AuthStack } from "./Stacks";
 import useAppContext from "../context/useAppContext";
 import useGetUserRole from "../hooks/useGetUserRole";
+// import * as Analytics from "expo-firebase-analytics";
+
 const Navigator = () => {
-  //const [isLogged, setIsLogged] = useState(false);
+  const navigationRef = useNavigationContainerRef();
+  const routeNameRef = useRef();
   const role = useGetUserRole();
   const { user, register } = useAppContext();
   if (!user || !register) {
@@ -29,6 +35,21 @@ const Navigator = () => {
     <>
       <StatusBar backgroundColor={THEME.colors.black} />
       <NavigationContainer
+        ref={navigationRef}
+        onReady={() => {
+          routeNameRef.current = navigationRef.getCurrentRoute().name;
+        }}
+        onStateChange={async () => {
+          const previousRouteName = routeNameRef.current;
+          const currentRouteName = navigationRef.getCurrentRoute().name;
+
+          if (previousRouteName !== currentRouteName) {
+            // await Analytics.logEvent("screen_view", {
+            //   currentRouteName,
+            // });
+          }
+          routeNameRef.current = currentRouteName;
+        }}
         theme={role === "classic" ? APP_THEME_CLASSIC : APP_THEME_BLACK}
       >
         <MyDrawer />

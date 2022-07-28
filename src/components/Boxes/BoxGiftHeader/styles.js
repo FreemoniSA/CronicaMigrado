@@ -19,5 +19,11 @@ const styles = StyleSheet.create({
   themeBlack: {
     color: THEME.colors.white,
   },
+  noMoreCoupons:{
+    paddingTop:8,
+    fontSize: THEME.fontSize.description,
+    color: THEME.colors.darkgray,
+    fontFamily:THEME.fontFamily.mainRegular
+  }
 });
 export default styles;

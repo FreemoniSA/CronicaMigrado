@@ -7,6 +7,7 @@ import { getHeaderTitle } from "@react-navigation/elements";
 import HeaderDefault from "../../components/Header/HeaderDefault";
 import Cronipesos from "../../screens/cronipesos";
 import Modal from "../../components/Modal";
+import Banner from "../../screens/banner";
 const Stack = createStackNavigator();
 
 const HomeStack = () => {
@@ -57,6 +58,23 @@ const HomeStack = () => {
               return (
                 <HeaderDefault
                   title={title}
+                  style={options.headerStyle}
+                  navigation={navigation}
+                />
+              );
+            },
+          }}
+        />
+        <Stack.Screen
+          name="Banner"
+          component={Banner}
+          options={{
+            title: "Banner",
+            header: ({ navigation, route, options }) => {
+              const title = getHeaderTitle(options, route.name);
+              return (
+                <HeaderDefault
+                  title={route.params.phrase}
                   style={options.headerStyle}
                   navigation={navigation}
                 />

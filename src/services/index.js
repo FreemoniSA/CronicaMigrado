@@ -1,15 +1,12 @@
 import auth from "@react-native-firebase/auth";
 import BASE_URL, { CRONICA_ID } from "../utils/constants/baseUrl";
 
-
 export const createUserFreemoniDb = async (dataUser) => {
   try {
-    const token = await auth().currentUser.getIdToken();
     const res = await fetch(
       `${BASE_URL}/api/v1/users/newconsumerfromthirdparty`,
       {
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
           appname: "club-cronica-app",
         },
@@ -25,6 +22,57 @@ export const createUserFreemoniDb = async (dataUser) => {
       }
     );
     const data = await res.json();
+    if (res.status >= 400) {
+      throw data;
+    }
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const signInClubCronica = async (dataUser) => {
+  try {
+    const res = await fetch(`${BASE_URL}/api/v1/users/signin`, {
+      headers: {
+        "Content-Type": "application/json",
+        appname: "club-cronica-app",
+      },
+      method: "post",
+      body: JSON.stringify({
+        email: dataUser.email,
+        password: dataUser.password,
+      }),
+    });
+    const data = await res.json();
+    if (res.status >= 400) {
+      throw data;
+    }
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const recoverPassword = async (email) => {
+  try {
+    const res = await fetch(
+      `${BASE_URL}/api/v1/users/recoverpasswordthirdparty`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          appname: "club-cronica-app",
+        },
+        method: "post",
+        body: JSON.stringify({
+          email,
+        }),
+      }
+    );
+    const data = await res.json();
+    if (res.status >= 400) {
+      throw data;
+    }
     return data;
   } catch (error) {
     throw error;
@@ -103,7 +151,7 @@ export const getAccountData = async (dataUser) => {
   try {
     const token = await auth().currentUser.getIdToken();
     const res = await fetch(
-      `${BASE_URL}/api/v3/accounts/byuser/${dataUser.userId}?destinationShopId=${dataUser.shopsWhereIHaveAccount[0]}`,
+      `${BASE_URL}/api/v3/accounts/byuser/${dataUser.userId}?destinationShopId=${CRONICA_ID}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -217,6 +265,13 @@ export const getSalePoints = async () => {
       }
     );
     const data = await res.json();
+
+    if (data?.length > 0) {
+      data.sort(function (a, b) {
+        return a.order - b.order;
+      });
+    }
+
     return data;
   } catch (error) {
     throw error;
@@ -237,7 +292,67 @@ export const getAllCouponsAvailable = async () => {
       }
     );
     const data = await res.json();
+
+    if (data?.length > 0) {
+      data.sort(function (a, b) {
+        return a.discount - b.discount;
+      });
+    }
+
+    if (data?.length > 0) {
+      data.sort(function (a, b) {
+        if (a.posData.name > b.posData.name) {
+          return 1;
+        }
+        if (a.posData.name < b.posData.name) {
+          return -1;
+        }
+        return 0;
+      });
+    }
+
     return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getCouponsAvailableFilter = async (brands) => {
+  try {
+    const token = await auth().currentUser.getIdToken();
+    const res = await fetch(
+      `${BASE_URL}/api/v1/coupons/availablecoupons/${CRONICA_ID}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          appname: "club-cronica-app",
+        },
+      }
+    );
+    const data = await res.json();
+
+    const filterData = data.filter((item) => item.posData.name in brands);
+
+    if (filterData?.length > 0) {
+      filterData.sort(function (a, b) {
+        return a.discount - b.discount;
+      });
+    }
+
+    if (filterData?.length > 0) {
+      filterData.sort(function (a, b) {
+        if (a.posData.name > b.posData.name) {
+          return 1;
+        }
+        if (a.posData.name < b.posData.name) {
+          return -1;
+        }
+        return 0;
+      });
+    }
+
+    return filterData;
   } catch (error) {
     throw error;
   }
@@ -257,11 +372,37 @@ export const getCouponsAvailable = async (posId) => {
       }
     );
     const data = await res.json();
+    if (data?.length > 0) {
+      data.sort(function (a, b) {
+        return a.discount - b.discount;
+      });
+    }
     return data;
   } catch (error) {
     throw error;
   }
 };
+
+export const getRemainCoupons = async (campaignId) => {
+  try {
+    const token = await auth().currentUser.getIdToken();
+    const res = await fetch(
+      `${BASE_URL}/api/v1/coupons/getremaincouponsamount/${CRONICA_ID}/${campaignId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          appname: "club-cronica-app",
+        },
+      }
+    );
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getGenerateCodeCoupon = async (posId) => {
   try {
     const token = await auth().currentUser.getIdToken();

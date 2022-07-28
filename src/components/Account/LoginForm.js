@@ -13,16 +13,20 @@ import {
   createUserSocialAuthFreemoniDb,
   getAccountData,
   getDataUser,
+  signInClubCronica,
 } from "../../services";
 import useAppContext from "../../context/useAppContext";
-//import { LoginManager, AccessToken } from "react-native-fbsdk-next";
-import AlertMaintenance from "../Alert/AlertMaintenance";
+import { LoginManager, AccessToken } from "react-native-fbsdk-next";
 import PopUp from "../PopUp";
-import * as Facebook from "expo-facebook";
+import ERRORS from "../../utils/constants/errors";
+import AlertForm from "../Alert/AlertForm";
+//import * as Facebook from "expo-facebook";
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [alertMaintenance, setAlertMaintenance] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [alertForm, setAlertForm] = useState(false);
+  const [title, setTitle] = useState(null);
+  const [description, setDescription] = useState(null);
   const { setRegister } = useAppContext();
   const {
     control,
@@ -50,38 +54,7 @@ export default function LoginForm() {
       setLoading(false);
       setRegister(true);
     } catch (error) {
-      setLoading(false);
-      throw error;
-    }
-  };
-
-  const signInWithFacebookHandle = async () => {
-    try {
-      setLoading(true);
-      setRegister(false);
-      await Facebook.initializeAsync({
-        appId: "331400501083799",
-      });
-      const { type, token, expirationDate, permissions, declinedPermissions } =
-        await Facebook.logInWithReadPermissionsAsync({
-          permissions: ["public_profile", "email"],
-        });
-      if (type === "success") {
-        const facebookCredential = auth.FacebookAuthProvider.credential(token);
-        const user_sign_in = await auth().signInWithCredential(
-          facebookCredential
-        );
-        if (user_sign_in.additionalUserInfo.isNewUser) {
-          const dataUser = await createUserSocialAuthFreemoniDb(
-            user_sign_in.user
-          );
-        }
-      } else {
-        // type === 'cancel'
-      }
-      setLoading(false);
-      setRegister(true);
-    } catch (error) {
+      console.log(error);
       setLoading(false);
       throw error;
     }
@@ -91,59 +64,131 @@ export default function LoginForm() {
   //   try {
   //     setLoading(true);
   //     setRegister(false);
-  //     const result = await LoginManager.logInWithPermissions([
-  //       "public_profile",
-  //       "email",
-  //     ]);
-
-  //     if (result.isCancelled) {
-  //       throw "User cancelled the login process";
-  //     }
-  //     const data = await AccessToken.getCurrentAccessToken();
-
-  //     if (!data) {
-  //       throw "Something went wrong obtaining access token";
-  //     }
-  //     const facebookCredential = auth.FacebookAuthProvider.credential(
-  //       data.accessToken
-  //     );
-  //     const user_sign_in = await auth().signInWithCredential(
-  //       facebookCredential
-  //     );
-  //     if (user_sign_in.additionalUserInfo.isNewUser) {
-  //       const dataUser = await createUserSocialAuthFreemoniDb(
-  //         user_sign_in.user
+  //     await Facebook.initializeAsync({
+  //       appId: "331400501083799",
+  //     });
+  //     const { type, token, expirationDate, permissions, declinedPermissions } =
+  //       await Facebook.logInWithReadPermissionsAsync({
+  //         permissions: ["public_profile", "email"],
+  //       });
+  //     if (type === "success") {
+  //       const facebookCredential = auth.FacebookAuthProvider.credential(token);
+  //       const user_sign_in = await auth().signInWithCredential(
+  //         facebookCredential
   //       );
+  //       if (user_sign_in.additionalUserInfo.isNewUser) {
+  //         const dataUser = await createUserSocialAuthFreemoniDb(
+  //           user_sign_in.user
+  //         );
+  //       }
+  //     } else {
+  //       // type === 'cancel'
   //     }
   //     setLoading(false);
   //     setRegister(true);
   //   } catch (error) {
   //     setLoading(false);
-  //     throw error;
+  //     if (error.code in ERRORS) {
+  //       setTitle("Ocurrió un error");
+  //       setDescription(ERRORS[error.code]);
+  //       setAlertForm(true);
+  //       return;
+  //     }
+  //     setTitle("Ocurrió un error");
+  //     setDescription(
+  //       "Ha ocurrido un error en el registro de tu nuevo usuario. Por favor vuelve a intentar."
+  //     );
+  //     setAlertForm(true);
+  //     return;
   //   }
   // };
 
-  const onSubmitLogin = (data) => {
-    auth()
-      .signInWithEmailAndPassword(data.email, data.password)
-      .then(() => {
-        console.log("Sign in");
-      })
-      .catch((error) => {
-        if (error.code === "auth/email-already-in-use") {
-          console.log("That email address is already in use!");
-        }
+  const signInWithFacebookHandle = async () => {
+    try {
+      setLoading(true);
+      setRegister(false);
+      const result = await LoginManager.logInWithPermissions([
+        "public_profile",
+        "email",
+      ]);
+      if (result.isCancelled) {
+        setLoading(false);
+        setTitle("Ocurrió un error");
+        setDescription("Se canceló el proceso de autenticación.");
+        setAlertForm(true);
+        return;
+      }
+      const data = await AccessToken.getCurrentAccessToken();
 
-        if (error.code === "auth/invalid-email") {
-          console.log("That email address is invalid!");
-        }
+      if (!data) {
+        setLoading(false);
+        setTitle("Ocurrió un error");
+        setDescription(
+          "Se produjo un error al momento de la autenticación. Por favor vuelva a intentar."
+        );
+        setAlertForm(true);
+        return;
+      }
 
-        console.error(error);
-      });
+      const facebookCredential = auth.FacebookAuthProvider.credential(
+        data.accessToken
+      );
+
+      const user_sign_in = await auth().signInWithCredential(
+        facebookCredential
+      );
+      if (user_sign_in.additionalUserInfo.isNewUser) {
+        const dataUser = await createUserSocialAuthFreemoniDb(
+          user_sign_in.user
+        );
+      }
+      
+      setLoading(false);
+      setRegister(true);
+    } catch (error) {
+      setLoading(false);
+      setTitle("Ocurrió un error");
+      setDescription(
+        "Se produjo un error al momento de la autenticación. Por favor vuelva a intentar."
+      );
+      setAlertForm(true);
+      return;
+    }
   };
 
-  const onSubmitLoginHandle = (data) => {
-    console.log("Se envia registro", data);
+  const onSubmitLogin = async (data) => {
+    try {
+      setLoading(true);
+      setRegister(false);
+      const loginUser = await signInClubCronica(data);
+      const login = await auth().signInWithEmailAndPassword(
+        data.email,
+        loginUser
+      );
+      setLoading(false);
+      setRegister(true);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      if (error.moreInfo in ERRORS) {
+        setTitle("Ocurrió un error");
+        setDescription(ERRORS[error.moreInfo]);
+        setAlertForm(true);
+        return;
+      }
+      setTitle("Ocurrió un error");
+      setDescription(
+        "Ha ocurrido un error en la autenticación. Por favor vuelve a intentar."
+      );
+      setAlertForm(true);
+      return;
+    }
+  };
+
+  const closeAlertForm = () => {
+    setTitle(null);
+    setDescription(null);
+    setAlertForm(false);
   };
 
   return (
@@ -177,10 +222,14 @@ export default function LoginForm() {
         title="Iniciar Sesión"
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
-        onPress={() => setAlertMaintenance(true)}
+        onPress={handleSubmit(onSubmitLogin)}
       />
-      <PopUp visible={alertMaintenance}>
-        <AlertMaintenance setAlertMaintenance={setAlertMaintenance} />
+      <PopUp visible={alertForm}>
+        <AlertForm
+          closeAlertForm={closeAlertForm}
+          title={title}
+          description={description}
+        />
       </PopUp>
       <Button
         title="Iniciar Sesión con Google"

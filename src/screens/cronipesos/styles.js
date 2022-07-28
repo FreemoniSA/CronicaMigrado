@@ -22,6 +22,10 @@ const styles = StyleSheet.create({
   },
   containerClassic:{
     paddingVertical:20
+  },
+  notCoupons:{
+    fontFamily:THEME.fontFamily.mainBold,
+    
   }
 });
 export default styles;

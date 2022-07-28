@@ -108,18 +108,8 @@ const Home = ({ navigation }) => {
             </View>
           </PopUp>
 
-          <Carousel />
-          {/* <Framer title="Regalos destacados">
-            <FlatList
-              data={regalos}
-              horizontal={true}
-              renderItem={({ item }) => (
-                <Card srcImg={item.img} size="rectangle" />
-              )}
-              keyExtractor={(item, index) => index.toString()}
-              showsHorizontalScrollIndicator={false}
-            />
-          </Framer> */}
+          <Carousel navigation={navigation} />
+
           {isLoadingSalePoints && <BrandsSkeleton />}
           {salePoints && (
             <Framer title="Seleccioná la marca">
@@ -145,14 +135,7 @@ const Home = ({ navigation }) => {
               />
             </Framer>
           )}
-          {/* <Framer title="Volvé a disfrutarlo" footer="Ver más compras">
-            <Card
-              srcImg={marcas[3].img}
-              size="small"
-              description={marcas[3].desc}
-              horizontal
-            />
-          </Framer> */}
+
           {isLoadingTransactions && <TransactionsSkeleton />}
 
           {transactionsByUser && (

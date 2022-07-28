@@ -3,7 +3,6 @@ import { View, Text, FlatList } from "react-native";
 import BoxGift from "../../components/Boxes/BoxGift";
 import Card from "../../components/Card";
 import styles from "./styles";
-import { regalos } from "../../components/mockdata/gifts";
 import { getAllCouponsAvailable } from "../../services";
 import { useQuery } from "react-query";
 import { useRefreshOnFocus } from "../../hooks/useRefreshOnFocus";

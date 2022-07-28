@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { StyleSheet, View, TextInput, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Text,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { Button, Icon, Input } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -14,10 +20,18 @@ import BASE_URL from "../../utils/constants/baseUrl";
 import { createUserFreemoniDb } from "../../services";
 import PopUp from "../PopUp";
 import AlertMaintenance from "../Alert/AlertMaintenance";
+import AlertForm from "../Alert/AlertForm";
+import ERRORS from "../../utils/constants/errors";
+import REGEX_DNI from "../../utils/constants/regexDni";
+import * as OpenAnything from "react-native-openanything";
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [alertMaintenance, setAlertMaintenance] = useState(false);
+  const [alertForm, setAlertForm] = useState(false);
+  const [alertFormSuccess, setAlertFormSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [title, setTitle] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [checked, setChecked] = useState(false);
   const navigation = useNavigation();
 
   const {
@@ -29,21 +43,51 @@ export default function RegisterForm() {
   const pwd = watch("password");
 
   const onSubmitSignupHandle = async (data) => {
-    try {
-      await auth().createUserWithEmailAndPassword(data.email, data.password);
-      const dataUser = await createUserFreemoniDb(data);
-      console.log(dataUser);
-    } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
-        console.log("That email address is already in use!");
-      }
-
-      if (error.code === "auth/invalid-email") {
-        console.log("That email address is invalid!");
-      }
-
-      console.error(error);
+    if (!checked) {
+      setTitle("Requisitos de registro");
+      setDescription(
+        "Para poder continuar con el registro es necesario que aceptes los términos y condiciones y las políticas de privacidad"
+      );
+      setAlertForm(true);
+      return;
     }
+    try {
+      setLoading(true);
+      const newUser = await createUserFreemoniDb(data);
+      setLoading(false);
+      setTitle("¡Registro exitoso!");
+      setDescription(
+        "¡Tu cuenta fue creada con éxito! Te enviamos un correo electrónico para que puedas verificarla y acceder."
+      );
+      setAlertFormSuccess(true);
+    } catch (error) {
+      console.log(error)
+      setLoading(false);
+      if (error?.errorKey in ERRORS) {
+        setTitle("Ocurrió un error");
+        setDescription(ERRORS[error.errorKey]);
+        setAlertForm(true);
+        return;
+      }
+      setTitle("Ocurrió un error");
+      setDescription(
+        "Ha ocurrido un error en el registro de tu nuevo usuario. Por favor vuelve a intentar."
+      );
+      setAlertForm(true);
+      return;
+    }
+  };
+
+  const closeAlertForm = () => {
+    setTitle(null);
+    setDescription(null);
+    setAlertForm(false);
+  };
+  const closeAlertFormSuccess = () => {
+    setTitle(null);
+    setDescription(null);
+    setAlertFormSuccess(false);
+    navigation.navigate("Login");
   };
 
   return (
@@ -70,6 +114,10 @@ export default function RegisterForm() {
         control={control}
         rules={{
           required: "DNI es requerido",
+          pattern: {
+            value: REGEX_DNI,
+            message: "Introduzca un DNI válido",
+          },
         }}
       />
       <CustomInput
@@ -109,14 +157,63 @@ export default function RegisterForm() {
         setShowPassword={setShowPassword}
         passwordIcon
       /> */}
+      <View style={styles.termsAndConditionsContainer}>
+        <View style={styles.checkContainer}>
+          <TouchableWithoutFeedback onPress={() => setChecked(!checked)}>
+            <View
+              style={[
+                styles.check,
+                { backgroundColor: checked ? "black" : null },
+              ]}
+            />
+          </TouchableWithoutFeedback>
+        </View>
+        <View style={styles.textTermsContainer}>
+          <Text>
+            He leído y acepto los{" "}
+            <Text
+              style={{ textDecorationLine: "underline", fontWeight: "bold" }}
+              onPress={() =>
+                OpenAnything.Pdf(
+                  "https://drive.google.com/file/d/1xKV8_u8teAqyGigqsP7CKmmu44Pj57DW/view?usp=sharing"
+                )
+              }
+            >
+              términos y condiciones
+            </Text>{" "}
+            y las{" "}
+            <Text
+              style={{ textDecorationLine: "underline", fontWeight: "bold" }}
+              onPress={() =>
+                OpenAnything.Pdf(
+                  "https://drive.google.com/file/d/1xNDEy39d_fcBQ4Lc0sz5ZJHGZAGotN87/view?usp=sharing"
+                )
+              }
+            >
+              políticas de privacidad
+            </Text>
+          </Text>
+        </View>
+      </View>
       <Button
         title="Registrarse"
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
-        onPress={() => setAlertMaintenance(true)}
+        onPress={handleSubmit(onSubmitSignupHandle)}
       />
-      <PopUp visible={alertMaintenance}>
-        <AlertMaintenance setAlertMaintenance={setAlertMaintenance} />
+      <PopUp visible={alertForm}>
+        <AlertForm
+          closeAlertForm={closeAlertForm}
+          title={title}
+          description={description}
+        />
+      </PopUp>
+      <PopUp visible={alertFormSuccess}>
+        <AlertForm
+          closeAlertForm={closeAlertFormSuccess}
+          title={title}
+          description={description}
+        />
       </PopUp>
       <View style={styles.accountExistContainer}>
         <Text style={styles.accountExistText}>
