@@ -2061,6 +2061,11 @@
   "resolved" "https://registry.npmjs.org/@react-native-community/clipboard/-/clipboard-1.5.1.tgz"
   "version" "1.5.1"
 
+"@react-native-firebase/analytics@^14.9.3":
+  "integrity" "sha512-KAL2ss7TF6eWV/wTfQNeuAr3AVNpUmuYNqC+PwDRtAJUcfiwwCc+gcsXp8UzA7ELC+JWLO4kDc+1LkdFr7p81g=="
+  "resolved" "https://registry.npmjs.org/@react-native-firebase/analytics/-/analytics-14.9.3.tgz"
+  "version" "14.9.3"
+
 "@react-native-firebase/app@^14.9.3", "@react-native-firebase/app@14.9.3":
   "integrity" "sha512-ipCVqj3MmK2O7se78ykjgPZdb4bBjME0Qqc07L/cKZTI6P9pNWRwYmT1R6kFF7aPirjcBxSIoJneotdRqIzaSQ=="
   "resolved" "https://registry.npmjs.org/@react-native-firebase/app/-/app-14.9.3.tgz"

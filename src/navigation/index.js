@@ -13,6 +13,7 @@ import { AuthStack } from "./Stacks";
 import useAppContext from "../context/useAppContext";
 import useGetUserRole from "../hooks/useGetUserRole";
 // import * as Analytics from "expo-firebase-analytics";
+import analytics from "@react-native-firebase/analytics";
 
 const Navigator = () => {
   const navigationRef = useNavigationContainerRef();
@@ -44,9 +45,9 @@ const Navigator = () => {
           const currentRouteName = navigationRef.getCurrentRoute().name;
 
           if (previousRouteName !== currentRouteName) {
-            // await Analytics.logEvent("screen_view", {
-            //   currentRouteName,
-            // });
+            await analytics().logEvent("screenView", {
+              currentRouteName,
+            });
           }
           routeNameRef.current = currentRouteName;
         }}
